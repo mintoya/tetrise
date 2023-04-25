@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
 public class block {
     Boolean[][] form;
@@ -13,22 +14,44 @@ public class block {
 
     }
 
+    public ArrayList<ArrayList<Boolean>> A_to_A(Boolean[][] b){
+        ArrayList<ArrayList<Boolean>> t = new ArrayList<>();
+        for (Boolean[] booleans : b) {
+            t.add((ArrayList<Boolean>) Arrays.asList(booleans));
+        }
+        return t;
+    }
+
     private static ArrayList<Boolean> enflatten(ArrayList<ArrayList<Boolean>> a){
 
         ArrayList<Boolean> flat = new ArrayList<>();
 
+        Boolean[] et = new Boolean[a.size()];
+        for (int i = 0; i < a.size(); i++) {et[i] = a.get(0).get(i);}
+        Collections.addAll(flat, et);
+        flat.remove(flat.size()-1);
+
+        et = new Boolean[a.size()];
         for (int i = 0; i < a.size(); i++) {
-            flat.add(a.get(0).get(i));
+            System.out.println("i is :"+i+" and a.size()-1 is:"+(a.size()-1));
+            et[i] = a.get(i).get(a.size()-1);
         }
-        for (int i = 0; i < a.size()-1; i++) {
-            flat.add(a.get(i+1).get(a.get(0).size()-1));
+        Collections.addAll(flat, et);
+        flat.remove(flat.size()-1);
+
+        et = new Boolean[a.size()];
+        for (int i = 0; i < a.size(); i++) {
+            et[i] = a.get(a.size()-1).get((a.size()-1)-i);
         }
-        for (int i = 1; i < a.size(); i++) {
-            flat.add(a.get(a.size()-1).get(a.size()-(i+1)));
+        Collections.addAll(flat, et);
+        flat.remove(flat.size()-1);
+
+        et = new Boolean[a.size()];
+        for (int i = 0; i < a.size(); i++) {
+            et[i] = a.get((a.size()-1)-i).get(0);
         }
-        for(int i = a.size()-1;i>1;i-=1){
-            flat.add(a.get(i).get(0));
-        }
+        Collections.addAll(flat, et);
+        flat.remove(flat.size()-1);
 
         return flat;
     }
@@ -36,10 +59,11 @@ public class block {
         ArrayList<ArrayList<Boolean>> a = new ArrayList<>();
         a.add(new ArrayList<>());
         a.add(new ArrayList<>());
+        a.add(new ArrayList<>());
 
-        a.get(0).add(false);a.get(0).add(true);
-
-        a.get(1).add(true);a.get(1).add(false);
+        a.get(0).add(false);a.get(0).add(true);a.get(0).add(false);
+        a.get(1).add(false);a.get(1).add(true);a.get(1).add(false);
+        a.get(2).add(false);a.get(2).add(true);a.get(2).add(false);
 
         ArrayList<Boolean> b = enflatten(a);
         System.out.println(b);
