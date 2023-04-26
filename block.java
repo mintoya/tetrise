@@ -7,53 +7,45 @@ public class block {
     public block(Boolean[][] a){
         form = a;
     }
+    public block (int[][] a){
+        form = new Boolean[a.length][a[0].length];
+        for(int i = 0;i<a.length;i+=1){
+            for (int j = 0; j < a[0].length; j++) {
+                form[i][j] = (a[i][j]==1);
+            }
+        }
+    }
     public void rotate(){
-        int i = form.length;
-        int o = form[0].length;
-        Boolean[][] temp = new Boolean[i][o];
-
     }
 
-    public ArrayList<ArrayList<Boolean>> A_to_A(Boolean[][] b){
+    public static ArrayList<ArrayList<Boolean>> a_to_A(Boolean[][] b){
         ArrayList<ArrayList<Boolean>> t = new ArrayList<>();
         for (Boolean[] booleans : b) {
-            t.add((ArrayList<Boolean>) Arrays.asList(booleans));
+            t.add( new ArrayList<>(Arrays.asList(booleans)));
         }
         return t;
     }
-
-    private static ArrayList<Boolean> enflatten(ArrayList<ArrayList<Boolean>> a){
-
-        ArrayList<Boolean> flat = new ArrayList<>();
-
-        Boolean[] et = new Boolean[a.size()];
-        for (int i = 0; i < a.size(); i++) {et[i] = a.get(0).get(i);}
-        Collections.addAll(flat, et);
-        flat.remove(flat.size()-1);
-
-        et = new Boolean[a.size()];
-        for (int i = 0; i < a.size(); i++) {
-            System.out.println("i is :"+i+" and a.size()-1 is:"+(a.size()-1));
-            et[i] = a.get(i).get(a.size()-1);
+    public static Boolean[][] A_to_a(ArrayList<ArrayList<Boolean>> ans){
+        Boolean[][] tem= new Boolean[ans.size()][ans.get(0).size()];
+        for (int i = 0; i < ans.size(); i++) {
+            for (int j = 0; j < ans.get(0).size(); j++) {
+                tem[i][j] = ans.get(i).get(j);
+            }
         }
-        Collections.addAll(flat, et);
-        flat.remove(flat.size()-1);
+        return tem;
+    }
+    public static Boolean[][] test(Boolean[][] init){
+        Boolean[][] temp = new Boolean[init[0].length][init.length];
+        final int M = init.length;
+        final int N = init[0].length;
 
-        et = new Boolean[a.size()];
-        for (int i = 0; i < a.size(); i++) {
-            et[i] = a.get(a.size()-1).get((a.size()-1)-i);
+
+        for (int r = 0; r < M; r++) {
+            for (int c = 0; c < N; c++) {
+                temp[c][M-1-r] = init[r][c];
+            }
         }
-        Collections.addAll(flat, et);
-        flat.remove(flat.size()-1);
-
-        et = new Boolean[a.size()];
-        for (int i = 0; i < a.size(); i++) {
-            et[i] = a.get((a.size()-1)-i).get(0);
-        }
-        Collections.addAll(flat, et);
-        flat.remove(flat.size()-1);
-
-        return flat;
+        return temp;
     }
     public static void main(String args[]){
         ArrayList<ArrayList<Boolean>> a = new ArrayList<>();
@@ -64,8 +56,11 @@ public class block {
         a.get(0).add(false);a.get(0).add(true);a.get(0).add(false);
         a.get(1).add(false);a.get(1).add(true);a.get(1).add(false);
         a.get(2).add(false);a.get(2).add(true);a.get(2).add(false);
+        int[][] b = {{0,1,0},{0,1,0},{0,1,0}};
+        block bl = new block(b);
 
-        ArrayList<Boolean> b = enflatten(a);
-        System.out.println(b);
+        System.out.println(a.equals(    a_to_A(bl.form)  ) );
+
+
     }
 }
