@@ -47,19 +47,20 @@ public class block {
         }
         return temp;
     }
+    public String toString(){
+        String a ="";
+        for (Boolean[] b:form) {
+            a+=Arrays.toString(b);
+        }
+        return a;
+    }
     public static void main(String args[]){
-        ArrayList<ArrayList<Boolean>> a = new ArrayList<>();
-        a.add(new ArrayList<>());
-        a.add(new ArrayList<>());
-        a.add(new ArrayList<>());
 
-        a.get(0).add(false);a.get(0).add(true);a.get(0).add(false);
-        a.get(1).add(false);a.get(1).add(true);a.get(1).add(false);
-        a.get(2).add(false);a.get(2).add(true);a.get(2).add(false);
-        int[][] b = {{0,1,0},{0,1,0},{0,1,0}};
+        int[][] b = {{0,1,0},
+                     {0,1,0},
+                     {0,1,0}};
         block bl = new block(b);
-
-        System.out.println(a.equals(    a_to_A(bl.form)  ) );
+        System.out.println(b);
 
 
     }
