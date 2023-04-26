@@ -50,7 +50,7 @@ public class block {
     public String toString(){
         String a ="";
         for (Boolean[] b:form) {
-            a+=Arrays.toString(b);
+            a+=Arrays.toString(b)+"\n";
         }
         return a;
     }
@@ -60,7 +60,7 @@ public class block {
                      {0,1,0},
                      {0,1,0}};
         block bl = new block(b);
-        System.out.println(b);
+        System.out.println(b.toString());
 
 
     }
