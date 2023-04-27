@@ -1,19 +1,23 @@
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 
 public class block {
+    public position position;
+
+
     private Boolean[][] form;
-    public block(Boolean[][] a){
+    public block(Boolean[][] a,position o){
         form = a;
+        position = o;
     }
-    public block (int[][] a){
+    public block (int[][] a,position p){
         form = new Boolean[a.length][a[0].length];
         for(int i = 0;i<a.length;i+=1){
             for (int j = 0; j < a[0].length; j++) {
                 form[i][j] = (a[i][j]==1);
             }
         }
+        position = p;
     }
     public void rotate(){
         form = rot(form);
