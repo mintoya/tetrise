@@ -5,11 +5,8 @@ public class field extends JPanel {
 
     protected void paintComponent(Graphics g){
         super.paintComponent(g);
-        int[][] b ={{1,0,0,0},
-                    {1,0,0,0},
-                    {1,0,0,0},
-                    {1,0,0,0}};
-        block bl = new block(b,new position(0,0));
+        block bl;
+        bl = new block('z',new position(0,0));
         paintBlox(bl,g);
         //g.fillRect(0,0,10,10);
     }
