@@ -3,7 +3,7 @@ import java.util.Arrays;
 import java.util.Collections;
 
 public class block {
-    Boolean[][] form;
+    private Boolean[][] form;
     public block(Boolean[][] a){
         form = a;
     }
@@ -16,16 +16,17 @@ public class block {
         }
     }
     public void rotate(){
+        form = rot(form);
     }
 
-    public static ArrayList<ArrayList<Boolean>> a_to_A(Boolean[][] b){
+    public ArrayList<ArrayList<Boolean>> a_to_A(Boolean[][] b){
         ArrayList<ArrayList<Boolean>> t = new ArrayList<>();
         for (Boolean[] booleans : b) {
             t.add( new ArrayList<>(Arrays.asList(booleans)));
         }
         return t;
     }
-    public static Boolean[][] A_to_a(ArrayList<ArrayList<Boolean>> ans){
+    public Boolean[][] A_to_a(ArrayList<ArrayList<Boolean>> ans){
         Boolean[][] tem= new Boolean[ans.size()][ans.get(0).size()];
         for (int i = 0; i < ans.size(); i++) {
             for (int j = 0; j < ans.get(0).size(); j++) {
@@ -34,7 +35,7 @@ public class block {
         }
         return tem;
     }
-    public static Boolean[][] test(Boolean[][] init){
+    public Boolean[][] rot(Boolean[][] init){
         Boolean[][] temp = new Boolean[init[0].length][init.length];
         final int M = init.length;
         final int N = init[0].length;
@@ -54,14 +55,5 @@ public class block {
         }
         return a;
     }
-    public static void main(String args[]){
 
-        int[][] b = {{0,1,0},
-                     {0,1,0},
-                     {0,1,0}};
-        block bl = new block(b);
-        System.out.println(b.toString());
-
-
-    }
 }
