@@ -6,6 +6,9 @@ public class block {
 
 
     private Boolean[][] form;
+    public Boolean[][] getBlock(){
+        return form;
+    }
     public block(Boolean[][] a,position o){
         form = a;
         position = o;
