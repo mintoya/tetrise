@@ -57,22 +57,6 @@ public class block {
         form = rot(form);
     }
 
-    public ArrayList<ArrayList<Boolean>> a_to_A(Boolean[][] b){
-        ArrayList<ArrayList<Boolean>> t = new ArrayList<>();
-        for (Boolean[] booleans : b) {
-            t.add( new ArrayList<>(Arrays.asList(booleans)));
-        }
-        return t;
-    }
-    public Boolean[][] A_to_a(ArrayList<ArrayList<Boolean>> ans){
-        Boolean[][] tem= new Boolean[ans.size()][ans.get(0).size()];
-        for (int i = 0; i < ans.size(); i++) {
-            for (int j = 0; j < ans.get(0).size(); j++) {
-                tem[i][j] = ans.get(i).get(j);
-            }
-        }
-        return tem;
-    }
     public Boolean[][] rot(Boolean[][] init){
         Boolean[][] temp = new Boolean[init[0].length][init.length];
         final int M = init.length;
