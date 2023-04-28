@@ -79,12 +79,16 @@ public class arrayCalculator {
 
     public Boolean[][] shave(Boolean[][] init){
         int by = 0,bx=0;
-        for (int i = 0; i < init.length; i++) {
-            if(isBlank(init[i])){bx+=1;}
+        for (Boolean[] value : init) {
+            if (isBlank(value)) {
+                bx += 1;
+            }
         }
         init = rot(init);
-        for (int i = 0; i < init.length; i++) {
-            if(isBlank(init[i])){by+=1;}
+        for (Boolean[] booleans : init) {
+            if (isBlank(booleans)) {
+                by += 1;
+            }
         }
         init = rot(init);init = rot(init);init = rot(init);
         Boolean[][] clean = new Boolean[init.length-bx][init[0].length-by];
@@ -99,9 +103,7 @@ public class arrayCalculator {
         }
         init = rot(init);init = rot(init);init = rot(init);
         for (int j = 0; j < clean.length; j++) {
-            for (int k = 0; k < clean[0].length; k++) {
-                clean[j][k] = init[j+by][k+bx];
-            }
+            System.arraycopy(init[j + by], bx, clean[j], 0, clean[0].length);
 
         }
         return clean;
