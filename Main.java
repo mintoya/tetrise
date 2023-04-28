@@ -24,8 +24,12 @@ public class Main {
         for (int i = 0; i < b.length; i++) {
             System.out.println(Arrays.toString(c[i]));
         }
-
-
+        System.out.println();
+        Boolean[][] d = {{true,false},{true,false}};
+        for (int i = 0; i < cal.shave(d).length; i++) {
+            System.out.println(Arrays.toString(cal.shaveInts(d)));
+            System.out.println(Arrays.toString(cal.shave(d)[i]));
+        }
 
     }
 

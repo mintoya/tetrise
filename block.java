@@ -5,6 +5,8 @@ public class block {
     public position position;
     private Boolean[][] form;
 
+    arrayCalculator calculator = new arrayCalculator();
+
     //<editor-fold desc="Defaults">
     public final int[][] l = {{1,0,0,0}, {1,0,0,0}, {1,0,0,0}, {1,0,0,0}};
     public final int[][] L = {{1,0,0},{1,0,0},{1,1,0}};
@@ -54,22 +56,9 @@ public class block {
 
 
     public void rotate(){
-        form = rot(form);
+        form = calculator.rot(form);
     }
 
-    public Boolean[][] rot(Boolean[][] init){
-        Boolean[][] temp = new Boolean[init[0].length][init.length];
-        final int M = init.length;
-        final int N = init[0].length;
-
-
-        for (int r = 0; r < M; r++) {
-            for (int c = 0; c < N; c++) {
-                temp[c][M-1-r] = init[r][c];
-            }
-        }
-        return temp;
-    }
     public String toString(){
         StringBuilder a = new StringBuilder();
         for (Boolean[] b:form) {

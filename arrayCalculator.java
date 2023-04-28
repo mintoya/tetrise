@@ -47,8 +47,6 @@ public class arrayCalculator {
         }
         return true;
     }
-
-
     public ArrayList<ArrayList<Boolean>> a_to_A(Boolean[][] b){
         ArrayList<ArrayList<Boolean>> t = new ArrayList<>();
         for (Boolean[] booleans : b) {
@@ -64,5 +62,66 @@ public class arrayCalculator {
             }
         }
         return tem;
+    }
+    public Boolean[][] rot(Boolean[][] init){
+        // rotates clockwise
+        Boolean[][] temp = new Boolean[init[0].length][init.length];
+        final int M = init.length;
+        final int N = init[0].length;
+
+
+        for (int r = 0; r < M; r++) {
+            for (int c = 0; c < N; c++) {
+                temp[c][M-1-r] = init[r][c];
+            }
+        }
+        return temp;
+    }
+
+    public Boolean[][] shave(Boolean[][] init){
+        int by = 0,bx=0;
+        for (int i = 0; i < init.length; i++) {
+            if(isBlank(init[i])){bx+=1;}
+        }
+        init = rot(init);
+        for (int i = 0; i < init.length; i++) {
+            if(isBlank(init[i])){by+=1;}
+        }
+        init = rot(init);init = rot(init);init = rot(init);
+        Boolean[][] clean = new Boolean[init.length-bx][init[0].length-by];
+        bx=0;by=0;
+        int i = 0;
+        while (isBlank(init[i])){
+            by+=1;i+=1;
+        }init = rot(init);
+        i=0;
+        while (isBlank(init[i])){
+            bx+=1;i+=1;
+        }
+        init = rot(init);init = rot(init);init = rot(init);
+        for (int j = 0; j < clean.length; j++) {
+            for (int k = 0; k < clean[0].length; k++) {
+                clean[j][k] = init[j+by][k+bx];
+            }
+
+        }
+        return clean;
+    }
+    public int[] shaveInts(Boolean[][] init){
+        int by = 0,bx=0;
+        int i = 0;
+        while (isBlank(init[i])){
+            by+=1;i+=1;
+        }init = rot(init);
+        i=0;
+        while (isBlank(init[i])){
+            bx+=1;i+=1;
+        }
+        return(new int[]{bx,by});}
+    private boolean isBlank(Boolean[] a){
+        for (Boolean b:a) {
+           if(b){return false;}
+        }
+        return true;
     }
 }
