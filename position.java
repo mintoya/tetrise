@@ -5,7 +5,6 @@ public class position {
     public position(int x,int y){
         this.x = x;this.y = y;
     }
-
     public int[] get(){
         int[] pos ={x,y};
         return pos;

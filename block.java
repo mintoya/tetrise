@@ -3,6 +3,9 @@ import java.util.Arrays;
 
 public class block {
     public position position;
+    private Boolean[][] form;
+
+    //<editor-fold desc="Defaults">
     public final int[][] l = {{1,0,0,0}, {1,0,0,0}, {1,0,0,0}, {1,0,0,0}};
     public final int[][] L = {{1,0,0},{1,0,0},{1,1,0}};
     public final int[][] j = {{0,0,1},{0,0,1},{0,1,1}};
@@ -10,9 +13,9 @@ public class block {
     public final int[][] T = {{0,0,0},{0,1,0},{1,1,1}};
     public final int[][] s = {{0,0,0},{0,1,1},{1,1,0}};
     public final int[][] z = {{1,1,0},{0,1,1},{0,0,0}};
+    //</editor-fold>
 
-
-    private Boolean[][] form;
+    //<editor-fold desc="Constructors">
     public Boolean[][] getBlock(){
         return form;
     }
@@ -47,6 +50,9 @@ public class block {
         }
         position = p;
     }
+    //</editor-fold>
+
+
     public void rotate(){
         form = rot(form);
     }
