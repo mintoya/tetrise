@@ -6,7 +6,6 @@ public class arrayCalculator {
         /*
         adds b to a at p and returns the result
          */
-        Boolean[][] c = a;
         int x = p.get()[0],y=p.get()[1];
         for (int i = 0; i < b[0].length; i++) {
             for (int j = 0; j < b.length; j++) {
@@ -16,7 +15,7 @@ public class arrayCalculator {
             }
 
         }
-        return c;
+        return a;
     }
     public boolean isValid(int x,int y, Boolean[][] a){
         return (
