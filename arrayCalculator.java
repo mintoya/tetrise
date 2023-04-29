@@ -7,29 +7,14 @@ public class arrayCalculator {
         Boolean[][] temp = rot(b);
         switch (c){
             case('l')->{
-                int l = p.get()[1];
-                if (l <= 0) {
-                    for (int i = 0; i < -l; i += 1) {
-                        if (!isBlank(temp[i])) {
-                            return false;
-                        }
-                    }
-                }
-                return true;
+                position pot = new position(p.get());
+                pot.change(new int[]{-1,0});
+                return canaddTwo(a,b,pot)>0;
             }
             case('r')->{
-                int l = p.get()[1]+b.length;
-                if(l<a[0].length){return true;}// if it cant go to the right, this is the problem
-                else{
-                    l=l-a.length;
-                    for (int i = 0;i<l;i+=1){
-                        if(!isBlank(temp[b.length-i])){
-                            return false;
-                        }
-                    }
-
-                }
-                return true;
+                position pot = new position(p.get());
+                pot.change(new int[]{1,0});
+                return canaddTwo(a,b,pot)>0;
             }
             default -> {return canMoveDown(a,b,p);}
         }
@@ -49,17 +34,41 @@ public class arrayCalculator {
         }
         return a;
     }
+    public int canaddTwo(Boolean[][] a,Boolean[][] b,position p){
+        /*
+        adds b to a at p and returns the result
+        -1 means 2 things overlap
+        -2 means out of bounds
+        1 means yes it can
+         */
+        int x = p.get()[0],y=p.get()[1];
+        for (int i = 0; i < b[0].length; i++) {
+            for (int j = 0; j < b.length; j++) {
+                if(b[j][i]){
+                    if(
+                    !isValid(i+x,j+y,a)
+                    ){
+                        return -2;
+                    }
+                    if(a[j+y][i+x]){
+                        return -1;
+                    }
+                }
+            }
+
+        }
+        return 1;
+    }
     public boolean isValid(int x,int y, Boolean[][] a){
         return (
-                x>0&&y>0
+                x>-1&&y>-1
                 &&x<a[0].length&&y<a.length
                 );
     }
     public boolean canMoveDown(Boolean[][] a,Boolean[][] b,position p){
-
-
-
-
+        position top = new position(p.get());
+        top.change(new int[]{0,1});
+        return (canaddTwo(a,b,top)>0);
     }
     public ArrayList<ArrayList<Boolean>> a_to_A(Boolean[][] b){
         ArrayList<ArrayList<Boolean>> t = new ArrayList<>();

@@ -6,6 +6,12 @@ public class field extends JPanel {
     public field(block b){
         super();
         currentBlock = b;
+        for(int i = 0;i<grid.length;i+=1){
+            for (int j = 0; j < grid[0].length; j++) {
+                grid[i][j] = false;
+            }
+        }
+        grid[grid.length-1][0] = true;
     }
 
     private block currentBlock;
@@ -34,8 +40,23 @@ public class field extends JPanel {
         //</editor-fold>
     }
     public void fall(){
-        currentBlock.position.change(new int[]{0,1});
-        System.out.println(calculator.canMove('d',grid,currentBlock.getBlock(),currentBlock.position));
+        if(calculator.canMove('d',grid,currentBlock.getBlock(),currentBlock.position)){
+            currentBlock.position.change(new int[]{0,1});
+        }else{
+            grid = calculator.addTwo(grid,currentBlock.getBlock(),currentBlock.position);
+
+            char c; int rand = (int)(Math.random()*7)+1;
+            switch (rand){
+                        case(1)->{c = 'l';}
+                        case(2)->{c = 'j';}
+                        case(3)->{c = 'o';}
+                        case(4)->{c = 'T';}
+                        case(5)->{c = 's';}
+                        case(6)->{c = 'z';}
+                        default -> {c = 'L';}
+                    }
+            currentBlock = new block(c,new position(0,0));
+        }
     }
 
     protected void drawGrid(Graphics g){
@@ -43,6 +64,10 @@ public class field extends JPanel {
         for (int i = 0;i<grid.length;i+=1){
             for(int j = 0;j<grid[i].length;j+=1){
                 g.drawRect(size*j,size*i,size,size);
+                // responsible for drawing taken blox
+                if(grid[i][j]) {
+                    g.fillRect((size * j) + 1, (size * i) + 1, size - 2, size - 2);
+                }
             }
         }
     }

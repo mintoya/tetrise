@@ -28,7 +28,7 @@ public class gaem extends Thread {
 
 
         gField.setBackground(new Color(146, 146, 146));
-        gField.setBounds(0,0,280,400);
+        gField.setBounds(0,0,280,500);
         frame.add(gField);
 
     }
@@ -53,7 +53,7 @@ public class gaem extends Thread {
 //                    gField.setCurrentBlock(block);
                     //</editor-fold>
                     frame.repaint();
-                    this.wait(1000);
+                    this.wait(500);
                     System.out.println("thread runnin");
                 }catch (InterruptedException e){
                     throw new RuntimeException(e);
