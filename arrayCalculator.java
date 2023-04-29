@@ -2,6 +2,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class arrayCalculator {
+    public boolean canRotate(Boolean[][] a,Boolean[][] b,position p){
+        Boolean[][] temp = rot(b);
+        return(canaddTwo(a,temp,p)>0);
+    }
 
     public boolean canMove(char c,Boolean[][] a,Boolean[][] b,position p){
         Boolean[][] temp = rot(b);

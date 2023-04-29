@@ -1,22 +1,57 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class field extends JPanel {
     arrayCalculator calculator = new arrayCalculator();
-    public field(block b){
+    JFrame frame;
+    public field(block b,JFrame f){
         super();
+        requestFocusInWindow();
+        frame = f;
+
         currentBlock = b;
         for(int i = 0;i<grid.length;i+=1){
             for (int j = 0; j < grid[0].length; j++) {
                 grid[i][j] = false;
             }
         }
-        grid[grid.length-1][0] = true;
+        frame.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                System.out.println("Key pressed: " + e.getKeyCode());
+                switch(e.getKeyCode()){
+                    case(38)->{rotate();}//up
+                    case(39)->{
+                        if(calculator.canMove('r',grid,currentBlock.getBlock(),currentBlock.position)){
+                            currentBlock.position.change(new int[]{1,0});
+                        }
+                        frame.repaint();
+                    }//right
+                    case(37)->{
+                        if(calculator.canMove('l',grid,currentBlock.getBlock(),currentBlock.position)){
+                            currentBlock.position.change(new int[]{-1,0});
+                        }
+                        frame.repaint();
+                    }//left
+                    case(40)->{fall();}//down
+                }
+
+            }
+        });
     }
 
     private block currentBlock;
     public void setCurrentBlock(block currentBlock) {
         this.currentBlock = currentBlock;
+    }
+    public void rotate(){
+        System.out.println(calculator.canRotate(grid,currentBlock.getBlock(),currentBlock.position));
+        if(calculator.canRotate(grid,currentBlock.getBlock(),currentBlock.position))
+            currentBlock.rotate();
+        frame.repaint();
     }
 
     private int pixelsize = 20;
@@ -26,7 +61,7 @@ public class field extends JPanel {
         super.paintComponent(g);
         drawGrid(g);
         paintBlox(currentBlock,g,new Color(217, 214, 214));
-        fall();
+        //fall();
         //<editor-fold desc="test section">
         //block[] bl = new block[2];
         //bl[0] = new block('j',new position(0,0)) ;//bl[4] = new block('l',new position(160,0));
@@ -57,6 +92,7 @@ public class field extends JPanel {
                     }
             currentBlock = new block(c,new position(0,0));
         }
+        frame.repaint();
     }
 
     protected void drawGrid(Graphics g){
@@ -85,4 +121,5 @@ public class field extends JPanel {
 
         }
     }
+
 }

@@ -5,7 +5,7 @@ public class gaem extends Thread {
     private field gField;
     private JFrame frame;
     public gaem(){
-        //<editor-fold desc="tests ">
+        //<editor-fold desc="setup">
         frame = new JFrame("testing");
         frame.setSize(500,500);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -22,14 +22,16 @@ public class gaem extends Thread {
             case(6)->{c = 'z';}
             default -> {c = 'L';}
         }
-        block block = new block(c,new position(0,0));
+        block block = new block(c,new position(3,0));
 
-        gField = new field(block);
+        gField = new field(block,frame);
+
 
 
         gField.setBackground(new Color(146, 146, 146));
         gField.setBounds(0,0,280,500);
         frame.add(gField);
+        //</editor-fold>
 
     }
     public void run(){
@@ -52,7 +54,7 @@ public class gaem extends Thread {
 //
 //                    gField.setCurrentBlock(block);
                     //</editor-fold>
-                    frame.repaint();
+                    gField.fall();
                     this.wait(500);
                     System.out.println("thread runnin");
                 }catch (InterruptedException e){
