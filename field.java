@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class field extends JPanel {
+    arrayCalculator calculator = new arrayCalculator();
     public field(block b){
         super();
         currentBlock = b;
@@ -19,6 +20,7 @@ public class field extends JPanel {
         super.paintComponent(g);
         drawGrid(g);
         paintBlox(currentBlock,g,new Color(217, 214, 214));
+        fall();
         //<editor-fold desc="test section">
         //block[] bl = new block[2];
         //bl[0] = new block('j',new position(0,0)) ;//bl[4] = new block('l',new position(160,0));
@@ -30,6 +32,10 @@ public class field extends JPanel {
         //    paintBlox(a,g,new Color(255,255,255));
         //}
         //</editor-fold>
+    }
+    public void fall(){
+        currentBlock.position.change(new int[]{0,1});
+        System.out.println(calculator.canMove('d',grid,currentBlock.getBlock(),currentBlock.position));
     }
 
     protected void drawGrid(Graphics g){

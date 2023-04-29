@@ -2,6 +2,38 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class arrayCalculator {
+
+    public boolean canMove(char c,Boolean[][] a,Boolean[][] b,position p){
+        Boolean[][] temp = rot(b);
+        switch (c){
+            case('l')->{
+                int l = p.get()[1];
+                if (l <= 0) {
+                    for (int i = 0; i < -l; i += 1) {
+                        if (!isBlank(temp[i])) {
+                            return false;
+                        }
+                    }
+                }
+                return true;
+            }
+            case('r')->{
+                int l = p.get()[1]+b.length;
+                if(l<a[0].length){return true;}// if it cant go to the right, this is the problem
+                else{
+                    l=l-a.length;
+                    for (int i = 0;i<l;i+=1){
+                        if(!isBlank(temp[b.length-i])){
+                            return false;
+                        }
+                    }
+
+                }
+                return true;
+            }
+            default -> {return canMoveDown(a,b,p);}
+        }
+    }
     public Boolean[][] addTwo(Boolean[][] a,Boolean[][] b,position p){
         /*
         adds b to a at p and returns the result
@@ -24,27 +56,10 @@ public class arrayCalculator {
                 );
     }
     public boolean canMoveDown(Boolean[][] a,Boolean[][] b,position p){
-        ArrayList<Integer> xposes = new ArrayList<>();
-        ArrayList<Integer> yposes = new ArrayList<>();
-        int x = p.get()[0],y=p.get()[1];
-        for (int i = b[0].length-1; i >-1 ; i--) {
-            boolean found = false;
-            int j = b.length-1;
-            while(j>-1){
-                if(!found&&b[j][i]){
-                    xposes.add(j+y);
-                    yposes.add(i+x);
-                    found = true;
-                }
-                j-=1;
-            }
-        }
 
-        for (int i = 0; i < xposes.size(); i++) {
-            int xp = xposes.get(i),yp=yposes.get(i);
-            if(isValid(x,y+1,b)&&a[y+1][x]){return false;}
-        }
-        return true;
+
+
+
     }
     public ArrayList<ArrayList<Boolean>> a_to_A(Boolean[][] b){
         ArrayList<ArrayList<Boolean>> t = new ArrayList<>();
@@ -76,7 +91,6 @@ public class arrayCalculator {
         }
         return temp;
     }
-
     public Boolean[][] shave(Boolean[][] init){
         int by = 0,bx=0;
         for (Boolean[] value : init) {

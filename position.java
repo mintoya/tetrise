@@ -3,6 +3,9 @@ public class position {
     public position(int x,int y){
         this.x = x;this.y = y;
     }
+    public position(int[] a){
+        x = a[0];y=a[1];
+    }
     public int[] get(){
         return new int[]{x,y};
     }
