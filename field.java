@@ -71,9 +71,21 @@ public class field extends JPanel {
         //</editor-fold>
     }
     public void rotate(){
-        System.out.println(calculator.canRotate(grid,currentBlock.getBlock(),currentBlock.position));
-        if(calculator.canRotate(grid,currentBlock.getBlock(),currentBlock.position))
-            currentBlock.rotate();
+        if(calculator.canRotate(grid,currentBlock.getBlock(),currentBlock.position)){
+            currentBlock.rotate();}
+        else if(currentBlock.position.get()[0]<grid[0].length/2){
+            if (!calculator.canRotate(grid,currentBlock.getBlock(),currentBlock.position)){
+                currentBlock.position.change(new int[]{1,0});
+            }
+            System.out.println("left");
+            rotate();
+        }else{
+            if (!calculator.canRotate(grid,currentBlock.getBlock(),currentBlock.position)){
+                currentBlock.position.change(new int[]{-1,0});
+            }
+            System.out.println("right");
+            rotate();
+        }
         frame.repaint();
     }
 

@@ -1,7 +1,7 @@
 public class speed extends Thread{
-    int interval = 600;
+    int interval = 1000;
     public void run(){
-        while(interval>300){
+        while(interval>250){
             synchronized (this){
                 try {
                     interval -=10;
