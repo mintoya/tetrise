@@ -2,9 +2,11 @@ import javax.swing.*;
 import java.awt.*;
 
 public class gaem extends Thread {
+    private final speed speed = new speed();
     private field gField;
     private JFrame frame;
     public gaem(){
+
         //<editor-fold desc="setup">
         frame = new JFrame("testing");
         frame.setSize(300,500-50);
@@ -39,6 +41,7 @@ public class gaem extends Thread {
         frame.add(gField.p);
         frame.add(gField.p.getScore());
         //</editor-fold>
+        speed.start();
 
     }
     public void run(){
@@ -62,7 +65,8 @@ public class gaem extends Thread {
 //                    gField.setCurrentBlock(block);
                     //</editor-fold>
                     gField.fall();
-                    this.wait(500);
+                    System.out.println(speed.interval);
+                    this.wait(speed.interval);
                 }catch (InterruptedException e){
                     throw new RuntimeException(e);
 
