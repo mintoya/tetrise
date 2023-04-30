@@ -6,6 +6,18 @@ public class arrayCalculator {
         Boolean[][] temp = rot(b);
         return(canaddTwo(a,temp,p)>0);
     }
+    public Boolean[][] mirror(Boolean[][] arr) {
+        int numRows = arr.length;
+        int numCols = arr[0].length;
+        Boolean[][] mirroredArr = new Boolean[numRows][numCols];
+        for (int i = 0; i < numRows; i++) {
+            for (int j = 0; j < numCols; j++) {
+                mirroredArr[i][j] = arr[i][numCols - 1 - j];
+            }
+        }
+        return mirroredArr;
+    }
+
 
     public boolean canMove(char c,Boolean[][] a,Boolean[][] b,position p){
         Boolean[][] temp = rot(b);

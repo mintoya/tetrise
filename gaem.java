@@ -49,7 +49,6 @@ public class gaem extends Thread {
             synchronized (this){
                 try{
                     gField.fall();
-                    System.out.println(speed.interval);
                     this.wait(speed.interval);
                 }catch (InterruptedException e){
                     throw new RuntimeException(e);

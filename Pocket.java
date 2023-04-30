@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Pocket extends JPanel {
+    private arrayCalculator calculator = new arrayCalculator();
 
     public Pocket(int size){pixelsize = size;}
 
@@ -14,15 +15,17 @@ public class Pocket extends JPanel {
 
     public void draw(Graphics g, block a, int score){
         this.score.setText(String.valueOf(score));
-        if(a!=null)
-         for (int i = 0; i < a.getBlock().length; i++) {
-            for (int j = 0; j < a.getBlock()[0].length; j++) {
+        if(a!=null){
+            Boolean[][] got = calculator.mirror(a.getBlock());
+            got = calculator.rot(got);
+         for (int i = 0; i < got.length; i++) {
+            for (int j = 0; j < got[0].length; j++) {
                 g.setColor(a.getColor());
-                if(a.getBlock()[i][j]){
-                    g.fillRect((pixelsize*i)+205,pixelsize*j,pixelsize,pixelsize);
+                if(got[i][j]){
+                    g.fillRect((pixelsize*i)+200,pixelsize*j+10,pixelsize,pixelsize);
                 }
             }
-        }
+        }}
     }
 
 }

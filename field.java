@@ -23,7 +23,6 @@ public class field extends JPanel {
         frame.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-                System.out.println(e.getKeyCode());
                 switch(e.getKeyCode()){
                     case(38)->{rotate();}//up
                     case(39)->{
@@ -81,13 +80,11 @@ public class field extends JPanel {
             if (!calculator.canRotate(grid,currentBlock.getBlock(),currentBlock.position)){
                 currentBlock.position.change(new int[]{1,0});
             }
-            System.out.println("left");
             rotate();
         }else{
             if (!calculator.canRotate(grid,currentBlock.getBlock(),currentBlock.position)){
                 currentBlock.position.change(new int[]{-1,0});
             }
-            System.out.println("right");
             rotate();
         }
         frame.repaint();
@@ -101,9 +98,9 @@ public class field extends JPanel {
 
     protected void paintComponent(Graphics g){
         super.paintComponent(g);
-        drawGrid(g);
         p.draw(g,heldBlock,score);
         paintBlox(currentBlock,g,currentBlock.getColor());
+        drawGrid(g);
         paintCast(g);
     }
 
@@ -147,6 +144,7 @@ public class field extends JPanel {
         int size = pixelSize;
         for (int i = extraLines;i<grid.length;i+=1){
             for(int j = 0;j<grid[i].length;j+=1){
+                g.setColor(new Color(0x000000));
                 g.drawRect(size*j,size*(i-extraLines),size,size);
                 // responsible for drawing taken blox
                 if(grid[i][j]) {
@@ -162,9 +160,9 @@ public class field extends JPanel {
                 int[] pos = b.position.get();
                 if(b.getBlock()[j][i]){
                     g.setColor(c);
-                    g.fillRect(size*(i)+((pos[0]*size)+1),
-                               size*(j-extraLines)+((pos[1]*size)+1),
-                            size-2,size-2);
+                    g.fillRect(size*(i)+((pos[0]*size)),
+                               size*(j-extraLines)+((pos[1]*size)),
+                            size,size);
 
                 }
             }
@@ -181,7 +179,7 @@ public class field extends JPanel {
             for (int j = 0; j < b.getBlock()[i].length; j++) {
                 int[] pos = b.position.get();
                 if(b.getBlock()[j][i]){
-                    g.setColor(b.getColor());
+                    g.setColor(b.getColor().brighter());
                     g.drawRect(size*(i)+((pos[0]*size)+1),
                             size*(j-extraLines)+((pos[1]*size)+1),
                             size-2,size-2);
