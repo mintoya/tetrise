@@ -7,7 +7,7 @@ public class gaem extends Thread {
     public gaem(){
         //<editor-fold desc="setup">
         frame = new JFrame("testing");
-        frame.setSize(500,500);
+        frame.setSize(300,500-50);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setLayout(null);
         frame.setVisible(true);
@@ -30,12 +30,19 @@ public class gaem extends Thread {
 
         gField.setBackground(new Color(146, 146, 146));
         gField.setBounds(0,0,280,500);
+        gField.p.setBackground(new Color(146, 146, 146));
+        gField.p.setBounds(200,0,80,50);
+        gField.p.getScore().setBounds(200,80,100,40);
+
+
         frame.add(gField);
+        frame.add(gField.p);
+        frame.add(gField.p.getScore());
         //</editor-fold>
 
     }
     public void run(){
-        while (true){
+        while (gField.gameEnd()){
             synchronized (this){
                 try{
 

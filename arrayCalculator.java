@@ -146,9 +146,60 @@ public class arrayCalculator {
             bx+=1;i+=1;
         }
         return(new int[]{bx,by});}
-    private boolean isBlank(Boolean[] a){
+
+    public boolean isBlank(Boolean[] a){
         for (Boolean b:a) {
            if(b){return false;}
+        }
+        return true;
+    }
+
+    public Boolean[][] check(Boolean[][] grid) {
+        ArrayList<ArrayList<Boolean>> agrid = a_to_A(grid);
+        int hm = 0;
+        for (int i = 0; i < agrid.size(); i++) {
+            if(isFull(agrid.get(i))){
+                agrid.remove(i);
+                hm+=1;
+            }
+        }
+        ArrayList<Boolean> temp= new ArrayList<>();
+        for (int i = 0; i < agrid.get(0).size(); i++) {
+            temp.add(false);
+        }
+        for (int i = 0; i < hm; i++) {
+            agrid.add(0,temp);
+        }
+        return A_to_a(agrid);
+    }
+    public boolean someFull(Boolean[][] grid){
+        for (Boolean[] a:grid) {
+            if(isFull(a)){
+                return true;
+            }
+
+        }return false;
+    }
+    public int gridSccore(Boolean[][] grid){
+
+    int i = 0;
+        for (Boolean[] a:grid) {
+            if(isFull(a)){
+                i+=1;
+            }
+    }
+        return i;
+    }
+
+    private boolean isFull(ArrayList<Boolean> booleans) {
+        for (Boolean a:booleans) {
+            if(!a){return false;}
+        }
+        return true;
+    }
+    private boolean isFull(Boolean[] booleans) {
+        for (Boolean a:booleans) {
+            if(!a){return false;}
         }
         return true;
     }

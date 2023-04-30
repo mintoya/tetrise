@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -21,16 +22,19 @@ public class block {
     public Boolean[][] getBlock(){
         return form;
     }
+    private Color c;
+    public Color getColor(){return c;}
+
     public block(Character a,position o){
         position = o;
         int[][] fin = L;
         switch (a){
-            case('L')->{fin = l;}
-            case('j')->{fin = j;}
-            case('o')->{fin = this.o;}
-            case('T')->{fin = T;}
-            case('s')->{fin = s;}
-            case('z')->{fin = z;}
+            case('L')->{fin = l;c = new Color(0x3535B7);}
+            case('j')->{fin = j;c = new Color(0xD97F28);}
+            case('o')->{fin = this.o;c = new Color(0xFFFF00);}
+            case('T')->{fin = T;c = new Color(0x930D7D);}
+            case('s')->{fin = s;c = new Color(0x047B00);}
+            case('z')->{fin = z;c = new Color(0x007B48);}
         }
         form = new Boolean[fin.length][fin[0].length];
         for(int i = 0;i<fin.length;i+=1){
@@ -38,19 +42,7 @@ public class block {
                 form[i][j] = (fin[i][j]==1);
             }
         }
-    }
-    public block(Boolean[][] a,position o){
-        form = a;
-        position = o;
-    }
-    public block (int[][] a,position p){
-        form = new Boolean[a.length][a[0].length];
-        for(int i = 0;i<a.length;i+=1){
-            for (int j = 0; j < a[0].length; j++) {
-                form[i][j] = (a[i][j]==1);
-            }
-        }
-        position = p;
+
     }
     //</editor-fold>
 

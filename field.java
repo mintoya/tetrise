@@ -1,23 +1,25 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.Arrays;
 
 public class field extends JPanel {
-    arrayCalculator calculator = new arrayCalculator();
-    JFrame frame;
+
+    private int score = 0;
+    private final arrayCalculator calculator = new arrayCalculator();
+    private final JFrame frame;
+
+    private block currentBlock;
+    private block heldBlock=null;
     public field(block b,JFrame f){
         super();
-        requestFocusInWindow();
         frame = f;
-
         currentBlock = b;
-        for(int i = 0;i<grid.length;i+=1){
-            for (int j = 0; j < grid[0].length; j++) {
-                grid[i][j] = false;
-            }
+        for (Boolean[] booleans : grid) {
+            Arrays.fill(booleans, false);
         }
+        //<editor-fold desc="controls">
         frame.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
@@ -37,15 +39,35 @@ public class field extends JPanel {
                         frame.repaint();
                     }//left
                     case(40)->{fall();}//down
+                    case(32)->
+                    {block temp = currentBlock;
+                        if(heldBlock!=null){
+                            heldBlock.position = new position(0,0);
+                            currentBlock = heldBlock;
+                        heldBlock = temp;}
+                        else{
+                            heldBlock = currentBlock;
+                            //<editor-fold desc="c is random char">
+                            char c; int rand = (int)(Math.random()*7)+1;
+                            switch (rand){
+                                case(1)->{c = 'l';}
+                                case(2)->{c = 'j';}
+                                case(3)->{c = 'o';}
+                                case(4)->{c = 'T';}
+                                case(5)->{c = 's';}
+                                case(6)->{c = 'z';}
+                                default -> {c = 'L';}
+                            }
+                            //</editor-fold>
+                            currentBlock = new block(c,new position(0,0));
+                        }
+
+                    }//space
                 }
 
             }
         });
-    }
-
-    private block currentBlock;
-    public void setCurrentBlock(block currentBlock) {
-        this.currentBlock = currentBlock;
+        //</editor-fold>
     }
     public void rotate(){
         System.out.println(calculator.canRotate(grid,currentBlock.getBlock(),currentBlock.position));
@@ -54,32 +76,31 @@ public class field extends JPanel {
         frame.repaint();
     }
 
-    private int pixelsize = 20;
-    private Boolean[][] grid  = new Boolean[20][10];
+    private final int pixelSize = 20;
+    private final int extraLines = 4;
+
+    Pocket p = new Pocket(pixelSize);
+    private Boolean[][] grid  = new Boolean[20+extraLines][10];
 
     protected void paintComponent(Graphics g){
         super.paintComponent(g);
         drawGrid(g);
-        paintBlox(currentBlock,g,new Color(217, 214, 214));
-        //fall();
-        //<editor-fold desc="test section">
-        //block[] bl = new block[2];
-        //bl[0] = new block('j',new position(0,0)) ;//bl[4] = new block('l',new position(160,0));
-        //bl[1] = new block('s',new position(4,0)) ;//bl[5] = new block('z',new position(200,0));
-        //bl[2] = new block('T',new position(80,0));bl[6] = new block('L',new position(240,0));
-        //bl[3] = new block('o',new position(120,0));
-
-        //for (block a:bl) {
-        //    paintBlox(a,g,new Color(255,255,255));
-        //}
-        //</editor-fold>
+        p.draw(g,heldBlock,score);
+        paintBlox(currentBlock,g,currentBlock.getColor());
     }
+
     public void fall(){
+        if(gameEnd()){
+        score+=10;
         if(calculator.canMove('d',grid,currentBlock.getBlock(),currentBlock.position)){
             currentBlock.position.change(new int[]{0,1});
         }else{
             grid = calculator.addTwo(grid,currentBlock.getBlock(),currentBlock.position);
 
+            score+=(Math.pow(calculator.gridSccore(grid),2))*50;
+            while(calculator.someFull(grid)){
+                grid = calculator.check(grid);
+            }
             char c; int rand = (int)(Math.random()*7)+1;
             switch (rand){
                         case(1)->{c = 'l';}
@@ -92,29 +113,39 @@ public class field extends JPanel {
                     }
             currentBlock = new block(c,new position(0,0));
         }
-        frame.repaint();
+        frame.repaint();}
+    }
+    public boolean gameEnd(){
+        for (int i = 0; i < extraLines; i++) {
+            if(!calculator.isBlank(grid[i])){
+                return false;
+            }
+
+        }return true;
     }
 
     protected void drawGrid(Graphics g){
-        int size = pixelsize;
-        for (int i = 0;i<grid.length;i+=1){
+        int size = pixelSize;
+        for (int i = extraLines;i<grid.length;i+=1){
             for(int j = 0;j<grid[i].length;j+=1){
-                g.drawRect(size*j,size*i,size,size);
+                g.drawRect(size*j,size*(i-extraLines),size,size);
                 // responsible for drawing taken blox
                 if(grid[i][j]) {
-                    g.fillRect((size * j) + 1, (size * i) + 1, size - 2, size - 2);
+                    g.fillRect((size * j) + 1, (size * (i-extraLines)) + 1, size, size);
                 }
             }
         }
     }
     protected void paintBlox(block b, Graphics g, Color c){
-        int size = pixelsize;
+        int size = pixelSize;
         for (int i = 0; i < b.getBlock().length; i++) {
             for (int j = 0; j < b.getBlock()[i].length; j++) {
                 int[] pos = b.position.get();
                 if(b.getBlock()[j][i]){
                     g.setColor(c);
-                    g.fillRect(size*i+((pos[0]*size)+1),size*j+((pos[1]*size)+1),size-2,size-2);
+                    g.fillRect(size*(i)+((pos[0]*size)+1),
+                               size*(j-extraLines)+((pos[1]*size)+1),
+                            size-2,size-2);
 
                 }
             }
