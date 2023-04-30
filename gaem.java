@@ -48,22 +48,6 @@ public class gaem extends Thread {
         while (gField.gameEnd()){
             synchronized (this){
                 try{
-
-                    //<editor-fold desc="tests">
-                    //                    char c; int rand = (int)(Math.random()*7)+1;
-//                    switch (rand){
-//                        case(1)->{c = 'l';}
-//                        case(2)->{c = 'j';}
-//                        case(3)->{c = 'o';}
-//                        case(4)->{c = 'T';}
-//                        case(5)->{c = 's';}
-//                        case(6)->{c = 'z';}
-//                        default -> {c = 'L';}
-//                    }
-//                    block block = new block(c,new position(0,0));
-//
-//                    gField.setCurrentBlock(block);
-                    //</editor-fold>
                     gField.fall();
                     System.out.println(speed.interval);
                     this.wait(speed.interval);

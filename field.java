@@ -23,6 +23,7 @@ public class field extends JPanel {
         frame.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
+                System.out.println(e.getKeyCode());
                 switch(e.getKeyCode()){
                     case(38)->{rotate();}//up
                     case(39)->{
@@ -38,8 +39,7 @@ public class field extends JPanel {
                         frame.repaint();
                     }//left
                     case(40)->{fall();}//down
-                    case(32)->
-                    {block temp = currentBlock;
+                    case(67)-> {block temp = currentBlock;
                         if(!currentBlock.hasBeenHeld){
                         if(heldBlock!=null){
                             heldBlock.position = new position(0,0);
@@ -63,6 +63,10 @@ public class field extends JPanel {
                             currentBlock = new block(c,new position(0,0));
                         }
                         }
+                    }//c
+                    case(32)->{
+                        while (calculator.canMoveDown(grid,currentBlock.getBlock(),currentBlock.position)){
+                            fall();}
                     }//space
                 }
 
@@ -100,6 +104,7 @@ public class field extends JPanel {
         drawGrid(g);
         p.draw(g,heldBlock,score);
         paintBlox(currentBlock,g,currentBlock.getColor());
+        paintCast(g);
     }
 
     public void fall(){
@@ -159,6 +164,26 @@ public class field extends JPanel {
                     g.setColor(c);
                     g.fillRect(size*(i)+((pos[0]*size)+1),
                                size*(j-extraLines)+((pos[1]*size)+1),
+                            size-2,size-2);
+
+                }
+            }
+
+        }
+    }
+    protected void paintCast(Graphics g){
+        int size = pixelSize;
+        block b= new block(currentBlock);
+        while (calculator.canMoveDown(grid,b.getBlock(),b.position)){
+            b.position.change(new int[]{0,1});
+        }
+        for (int i = 0; i < b.getBlock().length; i++) {
+            for (int j = 0; j < b.getBlock()[i].length; j++) {
+                int[] pos = b.position.get();
+                if(b.getBlock()[j][i]){
+                    g.setColor(b.getColor());
+                    g.drawRect(size*(i)+((pos[0]*size)+1),
+                            size*(j-extraLines)+((pos[1]*size)+1),
                             size-2,size-2);
 
                 }

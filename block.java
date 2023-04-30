@@ -45,6 +45,11 @@ public class block {
         }
 
     }
+    public block(block b){
+        position = new position(b.position.get());
+        c = b.getColor();
+        form = b.getBlock();
+    }
     //</editor-fold>
 
 
