@@ -23,7 +23,6 @@ public class field extends JPanel {
         frame.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-                System.out.println("Key pressed: " + e.getKeyCode());
                 switch(e.getKeyCode()){
                     case(38)->{rotate();}//up
                     case(39)->{
@@ -41,10 +40,12 @@ public class field extends JPanel {
                     case(40)->{fall();}//down
                     case(32)->
                     {block temp = currentBlock;
+                        if(!currentBlock.hasBeenHeld){
                         if(heldBlock!=null){
                             heldBlock.position = new position(0,0);
                             currentBlock = heldBlock;
-                        heldBlock = temp;}
+                        heldBlock = temp;
+                        heldBlock.hasBeenHeld = true;}
                         else{
                             heldBlock = currentBlock;
                             //<editor-fold desc="c is random char">
@@ -61,7 +62,7 @@ public class field extends JPanel {
                             //</editor-fold>
                             currentBlock = new block(c,new position(0,0));
                         }
-
+                        }
                     }//space
                 }
 
@@ -110,8 +111,9 @@ public class field extends JPanel {
                         case(5)->{c = 's';}
                         case(6)->{c = 'z';}
                         default -> {c = 'L';}
-                    }
-            currentBlock = new block(c,new position(0,0));
+            }
+            int rando = (int)(Math.random()*8);
+            currentBlock = new block(c,new position(rando,0));
         }
         frame.repaint();}
     }

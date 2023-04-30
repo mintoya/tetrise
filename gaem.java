@@ -63,7 +63,6 @@ public class gaem extends Thread {
                     //</editor-fold>
                     gField.fall();
                     this.wait(500);
-                    System.out.println("thread runnin");
                 }catch (InterruptedException e){
                     throw new RuntimeException(e);
 

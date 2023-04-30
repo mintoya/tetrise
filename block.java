@@ -5,6 +5,7 @@ import java.util.Arrays;
 public class block {
     public position position;
     private Boolean[][] form;
+    public boolean hasBeenHeld = false;
 
     arrayCalculator calculator = new arrayCalculator();
 
