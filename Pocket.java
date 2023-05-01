@@ -21,9 +21,12 @@ public class Pocket extends JPanel {
          for (int i = 0; i < got.length; i++) {
             for (int j = 0; j < got[0].length; j++) {
                 g.setColor(a.getColor());
+                if(a!=null)
                 if(got[i][j]){
-                    g.fillRect((pixelsize*i)+200,pixelsize*j+10,pixelsize,pixelsize);
+                    g.fillRect((pixelsize*i)+200,pixelsize*j,pixelsize,pixelsize);
                 }
+                g.setColor(new Color(0));
+                g.drawRect((pixelsize*i)+200,pixelsize*j,pixelsize,pixelsize);
             }
         }}
     }

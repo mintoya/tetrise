@@ -144,7 +144,7 @@ public class field extends JPanel {
         int size = pixelSize;
         for (int i = extraLines;i<grid.length;i+=1){
             for(int j = 0;j<grid[i].length;j+=1){
-                g.setColor(new Color(0x000000));
+                g.setColor(new Color(0x333232));
                 g.drawRect(size*j,size*(i-extraLines),size,size);
                 // responsible for drawing taken blox
                 if(grid[i][j]) {

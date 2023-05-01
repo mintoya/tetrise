@@ -16,13 +16,13 @@ public class gaem extends Thread {
 
         char c; int rand = (int)(Math.random()*7)+1;
         switch (rand){
-            case(1)->{c = 'l';}
-            case(2)->{c = 'j';}
-            case(3)->{c = 'o';}
-            case(4)->{c = 'T';}
-            case(5)->{c = 's';}
-            case(6)->{c = 'z';}
-            default -> {c = 'L';}
+            case(1)->   {c = 'l';}
+            case(2)->   {c = 'j';}
+            case(3)->   {c = 'o';}
+            case(4)->   {c = 'T';}
+            case(5)->   {c = 's';}
+            case(6)->   {c = 'z';}
+            default ->  {c = 'L';}
         }
         block block = new block(c,new position(3,0));
 
@@ -30,10 +30,10 @@ public class gaem extends Thread {
 
 
 
-        gField.setBackground(new Color(146, 146, 146));
-        gField.setBounds(0,0,280,500);
+        gField.setBackground(new Color(152, 150, 150));
+        gField.setBounds        (0,0,280,500);
         gField.p.setBackground(new Color(146, 146, 146));
-        gField.p.setBounds(200,0,80,50);
+        gField.p.setBounds      (200,0,80,50);
         gField.p.getScore().setBounds(200,80,100,40);
 
 
