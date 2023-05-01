@@ -30,12 +30,12 @@ public class block {
         position = o;
         int[][] fin = L;
         switch (a){
-            case('L')->{fin = l;c = new Color(0x050598);}
-            case('j')->{fin = j;c = new Color(0xD97F28);}
+            case('L')->{fin = l;c =      new Color(0x050598);}
+            case('j')->{fin = j;c =      new Color(0xD97F28);}
             case('o')->{fin = this.o;c = new Color(0xD3C202);}
-            case('T')->{fin = T;c = new Color(0xB20096);}
-            case('s')->{fin = s;c = new Color(0x86FF04);}
-            case('z')->{fin = z;c = new Color(0x00A963);}
+            case('T')->{fin = T;c =      new Color(0xB20096);}
+            case('s')->{fin = s;c =      new Color(0x86FF04);}
+            case('z')->{fin = z;c =      new Color(0x00A963);}
             case('l')->{c = new Color(0x059F00);}
         }
         form = new Boolean[fin.length][fin[0].length];
