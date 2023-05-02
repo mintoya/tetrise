@@ -14,17 +14,8 @@ public class gaem extends Thread {
         frame.setLayout(null);
         frame.setVisible(true);
 
-        char c; int rand = (int)(Math.random()*7)+1;
-        switch (rand){
-            case(1)->   {c = 'l';}
-            case(2)->   {c = 'j';}
-            case(3)->   {c = 'o';}
-            case(4)->   {c = 'T';}
-            case(5)->   {c = 's';}
-            case(6)->   {c = 'z';}
-            default ->  {c = 'L';}
-        }
-        block block = new block(c,new position(3,0));
+        block block = new block(new position(3,0));
+        block.randobblock(new position(3,0));
 
         gField = new field(block,frame);
 

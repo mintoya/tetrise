@@ -17,7 +17,7 @@ public class Pocket extends JPanel {
         this.score.setText(String.valueOf(score));
         if(a!=null){
             Boolean[][] got = calculator.mirror(a.getBlock());
-            got = calculator.rot(got);
+            got = calculator.rot(calculator.rot(got));
          for (int i = 0; i < got.length; i++) {
             for (int j = 0; j < got[0].length; j++) {
                 g.setColor(a.getColor());

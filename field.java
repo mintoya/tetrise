@@ -41,31 +41,18 @@ public class field extends JPanel {
                     case(67)-> {block temp = currentBlock;
                         if(!currentBlock.hasBeenHeld){
                         if(heldBlock!=null){
-                            heldBlock.position = new position(0,0);
+                            heldBlock.position = currentBlock.position;
                             currentBlock = heldBlock;
                         heldBlock = temp;
                         heldBlock.hasBeenHeld = true;}
                         else{
-                            heldBlock = currentBlock;
-                            //<editor-fold desc="c is random char">
-                            char c; int rand = (int)(Math.random()*7)+1;
-                            switch (rand){
-                                case(1)->{c = 'l';}
-                                case(2)->{c = 'j';}
-                                case(3)->{c = 'o';}
-                                case(4)->{c = 'T';}
-                                case(5)->{c = 's';}
-                                case(6)->{c = 'z';}
-                                default -> {c = 'L';}
-                            }
-                            //</editor-fold>
-                            currentBlock = new block(c,new position(0,0));
+                            heldBlock = currentBlock.randobblock(new position(0,0));
                         }
                         }
                     }//c
                     case(32)->{
                         while (calculator.canMoveDown(grid,currentBlock.getBlock(),currentBlock.position)){
-                            fall();}
+                            fall();}fall();
                     }//space
                 }
 
@@ -116,18 +103,9 @@ public class field extends JPanel {
             while(calculator.someFull(grid)){
                 grid = calculator.check(grid);
             }
-            char c; int rand = (int)(Math.random()*7)+1;
-            switch (rand){
-                        case(1)->{c = 'l';}
-                        case(2)->{c = 'j';}
-                        case(3)->{c = 'o';}
-                        case(4)->{c = 'T';}
-                        case(5)->{c = 's';}
-                        case(6)->{c = 'z';}
-                        default -> {c = 'L';}
-            }
             int rando = (int)(Math.random()*8);
-            currentBlock = new block(c,new position(rando,0));
+            currentBlock.randobblock(new position(rando,0));
+            currentBlock.hasBeenHeld = false;
         }
         frame.repaint();}
     }
