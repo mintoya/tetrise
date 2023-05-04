@@ -21,7 +21,7 @@ public class gaem extends Thread {
 
 
 
-        gField.setBackground(new Color(152, 150, 150));
+        gField.setBackground(new Color(28, 28, 28));
         gField.setBounds        (0,0,280,500);
         gField.p.setBackground(new Color(146, 146, 146));
         gField.p.setBounds      (200,0,80,50);
