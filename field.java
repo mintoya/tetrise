@@ -5,13 +5,17 @@ import java.awt.event.KeyEvent;
 import java.util.Arrays;
 
 public class field extends JPanel {
-
-    private int score = 0;
+    //<editor-fold desc="instance variables">
     private final arrayCalculator calculator = new arrayCalculator();
     private final JFrame frame;
-
+    private int score = 0;
     private block currentBlock;
     private block heldBlock=null;
+    private final int pixelSize = 20;
+    private final int extraLines = 4;
+    public Pocket p = new Pocket(pixelSize);
+    //</editor-fold>
+    private CBoolean[][] grid  = new CBoolean[20+extraLines][10];
     public field(block b,JFrame f){
         super();
         frame = f;
@@ -76,13 +80,6 @@ public class field extends JPanel {
         }
         frame.repaint();
     }
-
-    private final int pixelSize = 20;
-    private final int extraLines = 4;
-
-    Pocket p = new Pocket(pixelSize);
-    private CBoolean[][] grid  = new CBoolean[20+extraLines][10];
-
     protected void paintComponent(Graphics g){
         super.paintComponent(g);
         p.draw(g,heldBlock,score);
@@ -90,7 +87,6 @@ public class field extends JPanel {
         drawGrid(g);
         paintCast(g);
     }
-
     public void fall(){
         if(gameEnd()){
         score+=10;
@@ -99,7 +95,7 @@ public class field extends JPanel {
         }else{
             grid = calculator.addTwo(grid,currentBlock.getBlock(),currentBlock.position,currentBlock.getColor());
 
-            score+=(Math.pow(calculator.gridSccore(grid),2))*50;
+            score+=(Math.pow(calculator.gridScore(grid),2))*50;
             while(calculator.someFull(grid)){
                 grid = calculator.check(grid);
             }
@@ -117,7 +113,6 @@ public class field extends JPanel {
 
         }return true;
     }
-
     protected void drawGrid(Graphics g){
         int size = pixelSize;
         for (int i = extraLines;i<grid.length;i+=1){
@@ -168,5 +163,4 @@ public class field extends JPanel {
 
         }
     }
-
 }

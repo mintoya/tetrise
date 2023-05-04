@@ -3,10 +3,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class arrayCalculator {
-    public boolean canRotate(Boolean[][] a,Boolean[][] b,position p){
-        Boolean[][] temp = rot(b);
-        return(canaddTwo(a,temp,p)>0);
-    }
     public boolean canRotate(CBoolean[][] a,Boolean[][] b,position p){
         Boolean[][] temp = rot(b);
         return(canaddTwo(a,temp,p)>0);
@@ -22,26 +18,7 @@ public class arrayCalculator {
         }
         return mirroredArr;
     }
-
-
-    public boolean canMove(char c,Boolean[][] a,Boolean[][] b,position p){
-        Boolean[][] temp = rot(b);
-        switch (c){
-            case('l')->{
-                position pot = new position(p.get());
-                pot.change(new int[]{-1,0});
-                return canaddTwo(a,b,pot)>0;
-            }
-            case('r')->{
-                position pot = new position(p.get());
-                pot.change(new int[]{1,0});
-                return canaddTwo(a,b,pot)>0;
-            }
-            default -> {return canMoveDown(a,b,p);}
-        }
-    }
     public boolean canMove(char c,CBoolean[][] a,Boolean[][] b,position p){
-        Boolean[][] temp = rot(b);
         switch (c){
             case('l')->{
                 position pot = new position(p.get());
@@ -55,21 +32,6 @@ public class arrayCalculator {
             }
             default -> {return canMoveDown(a,b,p);}
         }
-    }
-    public Boolean[][] addTwo(Boolean[][] a,Boolean[][] b,position p){
-        /*
-        adds b to a at p and returns the result
-         */
-        int x = p.get()[0],y=p.get()[1];
-        for (int i = 0; i < b[0].length; i++) {
-            for (int j = 0; j < b.length; j++) {
-                if(b[j][i]){
-                    a[j+y][i+x] = true;
-                }
-            }
-
-        }
-        return a;
     }
     public CBoolean[][] addTwo(CBoolean[][] a,Boolean[][] b,position p,Color c){
         /*
@@ -85,47 +47,6 @@ public class arrayCalculator {
 
         }
         return a;
-    }
-    public CBoolean[][] addTwo(CBoolean[][] a, Boolean[][] b, Color c, position p){
-        /*
-        adds b to a at p and returns the result
-         */
-        int x = p.get()[0],y=p.get()[1];
-        for (int i = 0; i < b[0].length; i++) {
-            for (int j = 0; j < b.length; j++) {
-                if(b[j][i]){
-                    a[j+y][i+x] =new CBoolean(true,c) ;
-                }
-            }
-
-        }
-        return a;
-    }
-
-    public int canaddTwo(Boolean[][] a,Boolean[][] b,position p){
-        /*
-        adds b to a at p and returns the result
-        -1 means 2 things overlap
-        -2 means out of bounds
-        1 means yes it can
-         */
-        int x = p.get()[0],y=p.get()[1];
-        for (int i = 0; i < b[0].length; i++) {
-            for (int j = 0; j < b.length; j++) {
-                if(b[j][i]){
-                    if(
-                    !isValid(i+x,j+y,a)
-                    ){
-                        return -2;
-                    }
-                    if(a[j+y][i+x]){
-                        return -1;
-                    }
-                }
-            }
-
-        }
-        return 1;
     }
     public int canaddTwo(CBoolean[][] a,Boolean[][] b,position p){
         /*
@@ -152,34 +73,16 @@ public class arrayCalculator {
         }
         return 1;
     }
-    public boolean isValid(int x,int y, Boolean[][] a){
-        return (
-                x>-1&&y>-1
-                &&x<a[0].length&&y<a.length
-                );
-    }
     public boolean isValid(int x,int y, CBoolean[][] a){
         return (
                 x>-1&&y>-1
                         &&x<a[0].length&&y<a.length
         );
     }
-    public boolean canMoveDown(Boolean[][] a,Boolean[][] b,position p){
-        position top = new position(p.get());
-        top.change(new int[]{0,1});
-        return (canaddTwo(a,b,top)>0);
-    }
     public boolean canMoveDown(CBoolean[][] a,Boolean[][] b,position p){
         position top = new position(p.get());
         top.change(new int[]{0,1});
         return (canaddTwo(a,b,top)>0);
-    }
-    public ArrayList<ArrayList<Boolean>> a_to_A(Boolean[][] b){
-        ArrayList<ArrayList<Boolean>> t = new ArrayList<>();
-        for (Boolean[] booleans : b) {
-            t.add( new ArrayList<>(Arrays.asList(booleans)));
-        }
-        return t;
     }
     public ArrayList<ArrayList<CBoolean>> a_to_A(CBoolean[][] b){
         ArrayList<ArrayList<CBoolean>> t = new ArrayList<>();
@@ -211,14 +114,12 @@ public class arrayCalculator {
         }
         return temp;
     }
-
     public boolean isBlank(CBoolean[] a){
         for (CBoolean b:a) {
             if(b.get()){return false;}
         }
         return true;
     }
-
     public CBoolean[][] check(CBoolean[][] grid) {
         ArrayList<ArrayList<CBoolean>> agrid = a_to_A(grid);
         int hm = 0;
@@ -237,14 +138,6 @@ public class arrayCalculator {
         }
         return A_to_a(agrid);
     }
-    public boolean someFull(Boolean[][] grid){
-        for (Boolean[] a:grid) {
-            if(isFull(a)){
-                return true;
-            }
-
-        }return false;
-    }
     public boolean someFull(CBoolean[][] grid){
         for (CBoolean[] a:grid) {
             if(isFull(a)){
@@ -253,17 +146,7 @@ public class arrayCalculator {
 
         }return false;
     }
-    public int gridSccore(Boolean[][] grid){
-
-    int i = 0;
-        for (Boolean[] a:grid) {
-            if(isFull(a)){
-                i+=1;
-            }
-    }
-        return i;
-    }
-    public int gridSccore(CBoolean[][] grid){
+    public int gridScore(CBoolean[][] grid){
 
         int i = 0;
         for (CBoolean[] a:grid) {
@@ -273,16 +156,9 @@ public class arrayCalculator {
         }
         return i;
     }
-
     private boolean isFull(ArrayList<CBoolean> booleans) {
         for (CBoolean a:booleans) {
             if(!a.get()){return false;}
-        }
-        return true;
-    }
-    private boolean isFull(Boolean[] booleans) {
-        for (Boolean a:booleans) {
-            if(!a){return false;}
         }
         return true;
     }

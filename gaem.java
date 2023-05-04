@@ -3,12 +3,12 @@ import java.awt.*;
 
 public class gaem extends Thread {
     private final speed speed = new speed();
-    private field gField;
-    private JFrame frame;
+    private final field gField;
+
     public gaem(){
 
         //<editor-fold desc="setup">
-        frame = new JFrame("testing");
+        JFrame frame = new JFrame("testing");
         frame.setSize(300,500-50);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setLayout(null);
@@ -17,7 +17,7 @@ public class gaem extends Thread {
         block block = new block(new position(3,0));
         block.randobblock(new position(3,0));
 
-        gField = new field(block,frame);
+        gField = new field(block, frame);
 
 
 
