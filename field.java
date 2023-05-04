@@ -16,8 +16,8 @@ public class field extends JPanel {
         super();
         frame = f;
         currentBlock = b;
-        for (Boolean[] booleans : grid) {
-            Arrays.fill(booleans, false);
+        for (CBoolean[] booleans : grid) {
+            Arrays.fill(booleans, new CBoolean(false));
         }
         //<editor-fold desc="controls">
         frame.addKeyListener(new KeyAdapter() {
@@ -81,7 +81,7 @@ public class field extends JPanel {
     private final int extraLines = 4;
 
     Pocket p = new Pocket(pixelSize);
-    private Boolean[][] grid  = new Boolean[20+extraLines][10];
+    private CBoolean[][] grid  = new CBoolean[20+extraLines][10];
 
     protected void paintComponent(Graphics g){
         super.paintComponent(g);
@@ -97,7 +97,7 @@ public class field extends JPanel {
         if(calculator.canMove('d',grid,currentBlock.getBlock(),currentBlock.position)){
             currentBlock.position.change(new int[]{0,1});
         }else{
-            grid = calculator.addTwo(grid,currentBlock.getBlock(),currentBlock.position);
+            grid = calculator.addTwo(grid,currentBlock.getBlock(),currentBlock.position,currentBlock.getColor());
 
             score+=(Math.pow(calculator.gridSccore(grid),2))*50;
             while(calculator.someFull(grid)){
@@ -125,7 +125,8 @@ public class field extends JPanel {
                 g.setColor(new Color(0x333232));
                 g.drawRect(size*j,size*(i-extraLines),size,size);
                 // responsible for drawing taken blox
-                if(grid[i][j]) {
+                if(grid[i][j].get()) {
+                    g.setColor(grid[i][j].getColer());
                     g.fillRect((size * j) + 1, (size * (i-extraLines)) + 1, size, size);
                 }
             }

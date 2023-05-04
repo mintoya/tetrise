@@ -1,8 +1,13 @@
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class arrayCalculator {
     public boolean canRotate(Boolean[][] a,Boolean[][] b,position p){
+        Boolean[][] temp = rot(b);
+        return(canaddTwo(a,temp,p)>0);
+    }
+    public boolean canRotate(CBoolean[][] a,Boolean[][] b,position p){
         Boolean[][] temp = rot(b);
         return(canaddTwo(a,temp,p)>0);
     }
@@ -35,6 +40,22 @@ public class arrayCalculator {
             default -> {return canMoveDown(a,b,p);}
         }
     }
+    public boolean canMove(char c,CBoolean[][] a,Boolean[][] b,position p){
+        Boolean[][] temp = rot(b);
+        switch (c){
+            case('l')->{
+                position pot = new position(p.get());
+                pot.change(new int[]{-1,0});
+                return canaddTwo(a,b,pot)>0;
+            }
+            case('r')->{
+                position pot = new position(p.get());
+                pot.change(new int[]{1,0});
+                return canaddTwo(a,b,pot)>0;
+            }
+            default -> {return canMoveDown(a,b,p);}
+        }
+    }
     public Boolean[][] addTwo(Boolean[][] a,Boolean[][] b,position p){
         /*
         adds b to a at p and returns the result
@@ -50,6 +71,37 @@ public class arrayCalculator {
         }
         return a;
     }
+    public CBoolean[][] addTwo(CBoolean[][] a,Boolean[][] b,position p,Color c){
+        /*
+        adds b to a at p and returns the result
+         */
+        int x = p.get()[0],y=p.get()[1];
+        for (int i = 0; i < b[0].length; i++) {
+            for (int j = 0; j < b.length; j++) {
+                if(b[j][i]){
+                    a[j+y][i+x] = new CBoolean(true,c);
+                }
+            }
+
+        }
+        return a;
+    }
+    public CBoolean[][] addTwo(CBoolean[][] a, Boolean[][] b, Color c, position p){
+        /*
+        adds b to a at p and returns the result
+         */
+        int x = p.get()[0],y=p.get()[1];
+        for (int i = 0; i < b[0].length; i++) {
+            for (int j = 0; j < b.length; j++) {
+                if(b[j][i]){
+                    a[j+y][i+x] =new CBoolean(true,c) ;
+                }
+            }
+
+        }
+        return a;
+    }
+
     public int canaddTwo(Boolean[][] a,Boolean[][] b,position p){
         /*
         adds b to a at p and returns the result
@@ -75,13 +127,49 @@ public class arrayCalculator {
         }
         return 1;
     }
+    public int canaddTwo(CBoolean[][] a,Boolean[][] b,position p){
+        /*
+        adds b to a at p and returns the result
+        -1 means 2 things overlap
+        -2 means out of bounds
+        1 means yes it can
+         */
+        int x = p.get()[0],y=p.get()[1];
+        for (int i = 0; i < b[0].length; i++) {
+            for (int j = 0; j < b.length; j++) {
+                if(b[j][i]){
+                    if(
+                            !isValid(i+x,j+y,a)
+                    ){
+                        return -2;
+                    }
+                    if(a[j+y][i+x].get()){
+                        return -1;
+                    }
+                }
+            }
+
+        }
+        return 1;
+    }
     public boolean isValid(int x,int y, Boolean[][] a){
         return (
                 x>-1&&y>-1
                 &&x<a[0].length&&y<a.length
                 );
     }
+    public boolean isValid(int x,int y, CBoolean[][] a){
+        return (
+                x>-1&&y>-1
+                        &&x<a[0].length&&y<a.length
+        );
+    }
     public boolean canMoveDown(Boolean[][] a,Boolean[][] b,position p){
+        position top = new position(p.get());
+        top.change(new int[]{0,1});
+        return (canaddTwo(a,b,top)>0);
+    }
+    public boolean canMoveDown(CBoolean[][] a,Boolean[][] b,position p){
         position top = new position(p.get());
         top.change(new int[]{0,1});
         return (canaddTwo(a,b,top)>0);
@@ -93,8 +181,15 @@ public class arrayCalculator {
         }
         return t;
     }
-    public Boolean[][] A_to_a(ArrayList<ArrayList<Boolean>> ans){
-        Boolean[][] tem= new Boolean[ans.size()][ans.get(0).size()];
+    public ArrayList<ArrayList<CBoolean>> a_to_A(CBoolean[][] b){
+        ArrayList<ArrayList<CBoolean>> t = new ArrayList<>();
+        for (CBoolean[] booleans : b) {
+            t.add( new ArrayList<>(Arrays.asList(booleans)));
+        }
+        return t;
+    }
+    public CBoolean[][] A_to_a(ArrayList<ArrayList<CBoolean>> ans){
+        CBoolean[][] tem= new CBoolean[ans.size()][ans.get(0).size()];
         for (int i = 0; i < ans.size(); i++) {
             for (int j = 0; j < ans.get(0).size(); j++) {
                 tem[i][j] = ans.get(i).get(j);
@@ -116,58 +211,16 @@ public class arrayCalculator {
         }
         return temp;
     }
-    public Boolean[][] shave(Boolean[][] init){
-        int by = 0,bx=0;
-        for (Boolean[] value : init) {
-            if (isBlank(value)) {
-                bx += 1;
-            }
-        }
-        init = rot(init);
-        for (Boolean[] booleans : init) {
-            if (isBlank(booleans)) {
-                by += 1;
-            }
-        }
-        init = rot(init);init = rot(init);init = rot(init);
-        Boolean[][] clean = new Boolean[init.length-bx][init[0].length-by];
-        bx=0;by=0;
-        int i = 0;
-        while (isBlank(init[i])){
-            by+=1;i+=1;
-        }init = rot(init);
-        i=0;
-        while (isBlank(init[i])){
-            bx+=1;i+=1;
-        }
-        init = rot(init);init = rot(init);init = rot(init);
-        for (int j = 0; j < clean.length; j++) {
-            System.arraycopy(init[j + by], bx, clean[j], 0, clean[0].length);
 
-        }
-        return clean;
-    }
-    public int[] shaveInts(Boolean[][] init){
-        int by = 0,bx=0;
-        int i = 0;
-        while (isBlank(init[i])){
-            by+=1;i+=1;
-        }init = rot(init);
-        i=0;
-        while (isBlank(init[i])){
-            bx+=1;i+=1;
-        }
-        return(new int[]{bx,by});}
-
-    public boolean isBlank(Boolean[] a){
-        for (Boolean b:a) {
-           if(b){return false;}
+    public boolean isBlank(CBoolean[] a){
+        for (CBoolean b:a) {
+            if(b.get()){return false;}
         }
         return true;
     }
 
-    public Boolean[][] check(Boolean[][] grid) {
-        ArrayList<ArrayList<Boolean>> agrid = a_to_A(grid);
+    public CBoolean[][] check(CBoolean[][] grid) {
+        ArrayList<ArrayList<CBoolean>> agrid = a_to_A(grid);
         int hm = 0;
         for (int i = 0; i < agrid.size(); i++) {
             if(isFull(agrid.get(i))){
@@ -175,9 +228,9 @@ public class arrayCalculator {
                 hm+=1;
             }
         }
-        ArrayList<Boolean> temp= new ArrayList<>();
+        ArrayList<CBoolean> temp= new ArrayList<>();
         for (int i = 0; i < agrid.get(0).size(); i++) {
-            temp.add(false);
+            temp.add(new CBoolean(false));
         }
         for (int i = 0; i < hm; i++) {
             agrid.add(0,temp);
@@ -186,6 +239,14 @@ public class arrayCalculator {
     }
     public boolean someFull(Boolean[][] grid){
         for (Boolean[] a:grid) {
+            if(isFull(a)){
+                return true;
+            }
+
+        }return false;
+    }
+    public boolean someFull(CBoolean[][] grid){
+        for (CBoolean[] a:grid) {
             if(isFull(a)){
                 return true;
             }
@@ -202,16 +263,32 @@ public class arrayCalculator {
     }
         return i;
     }
+    public int gridSccore(CBoolean[][] grid){
 
-    private boolean isFull(ArrayList<Boolean> booleans) {
-        for (Boolean a:booleans) {
-            if(!a){return false;}
+        int i = 0;
+        for (CBoolean[] a:grid) {
+            if(isFull(a)){
+                i+=1;
+            }
+        }
+        return i;
+    }
+
+    private boolean isFull(ArrayList<CBoolean> booleans) {
+        for (CBoolean a:booleans) {
+            if(!a.get()){return false;}
         }
         return true;
     }
     private boolean isFull(Boolean[] booleans) {
         for (Boolean a:booleans) {
             if(!a){return false;}
+        }
+        return true;
+    }
+    private boolean isFull(CBoolean[] booleans) {
+        for (CBoolean a:booleans) {
+            if(!a.get()){return false;}
         }
         return true;
     }
