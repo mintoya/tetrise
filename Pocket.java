@@ -2,11 +2,11 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Pocket extends JPanel {
-    private arrayCalculator calculator = new arrayCalculator();
+    private final arrayCalculator calculator = new arrayCalculator();
 
     public Pocket(int size){pixelsize = size;}
 
-    private int pixelsize;
+    private final int pixelsize;
     private JTextField score = new JTextField("0");
 
     public JTextField getScore() {
@@ -21,7 +21,6 @@ public class Pocket extends JPanel {
          for (int i = 0; i < got.length; i++) {
             for (int j = 0; j < got[0].length; j++) {
                 g.setColor(a.getColor());
-                if(a!=null)
                 if(got[i][j]){
                     g.fillRect((pixelsize*i)+200,pixelsize*j,pixelsize,pixelsize);
                 }

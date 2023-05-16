@@ -1,5 +1,4 @@
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.Arrays;
 
 public class block {
@@ -29,26 +28,6 @@ public class block {
         this.position = o;
     }
 
-    public block(Character a,position o){
-        position = o;
-        int[][] fin = L;
-        switch (a){
-            case('L')->{fin = l;c =      new Color(0x050598);}
-            case('j')->{fin = j;c =      new Color(0xD97F28);}
-            case('o')->{fin = this.o;c = new Color(0xD3C202);}
-            case('T')->{fin = T;c =      new Color(0xB20096);}
-            case('s')->{fin = s;c =      new Color(0x86FF04);}
-            case('z')->{fin = z;c =      new Color(0x00A963);}
-            case('l')->{c = new Color(0x059F00);}
-        }
-        form = new Boolean[fin.length][fin[0].length];
-        for(int i = 0;i<fin.length;i+=1){
-            for (int j = 0; j < fin[0].length; j++) {
-                form[i][j] = (fin[i][j]==1);
-            }
-        }
-
-    }
     public block randobblock(position p){
         block returnblock = new block(this);
         char c; int rand = (int)(Math.random()*7)+1;
@@ -91,14 +70,6 @@ public class block {
 
     public void rotate(){
         form = calculator.rot(form);
-    }
-
-    public String toString(){
-        StringBuilder a = new StringBuilder();
-        for (Boolean[] b:form) {
-            a.append(Arrays.toString(b)).append("\n");
-        }
-        return a.toString();
     }
 
 }
