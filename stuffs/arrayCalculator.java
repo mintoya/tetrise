@@ -1,9 +1,14 @@
+package stuffs;
+
+import stuffs.CBoolean;
+import stuffs.position;
+
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class arrayCalculator {
-    public boolean canRotate(CBoolean[][] a,Boolean[][] b,position p){
+    public boolean canRotate(CBoolean[][] a, Boolean[][] b, position p){
         Boolean[][] temp = rot(b);
         return(canaddTwo(a,temp,p)>0);
     }

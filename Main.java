@@ -1,3 +1,5 @@
+import stuffs.gaem;
+
 public class Main {
     public static void main(String[] args) {
         //<editor-fold desc="game">

@@ -1,3 +1,5 @@
+package stuffs;
+
 import ui.restarter;
 
 import javax.swing.*;
@@ -7,7 +9,7 @@ import java.awt.event.ActionListener;
 
 public class gaem extends Thread {
     private speed speed = new speed();
-    private field gField;
+    public field gField;
     JFrame frame;
     private int high = 0;
     private int current = 0;
@@ -37,6 +39,7 @@ public class gaem extends Thread {
         frame.add(gField);
         frame.add(gField.p);
         frame.add(gField.p.getScore());
+        frame.addKeyListener(gField);
         //</editor-fold>
         speed.start();
     }
@@ -70,6 +73,7 @@ class prompt{
         }
     );
     }
+
 
 }
 class speed extends Thread{

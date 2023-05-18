@@ -1,13 +1,16 @@
+package stuffs;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.Arrays;
 
-public class field extends JPanel {
+public class field extends JPanel implements KeyListener {
     //<editor-fold desc="instance variables">
     private final arrayCalculator calculator = new arrayCalculator();
-    private final JFrame frame;
+    public   JFrame frame;
     private int score = 0;
     private block currentBlock;
     private block heldBlock=null;
@@ -23,57 +26,19 @@ public class field extends JPanel {
         for (CBoolean[] booleans : grid) {
             Arrays.fill(booleans, new CBoolean(false));
         }
-        //<editor-fold desc="controls">
-        frame.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent e) {
-                switch(e.getKeyCode()){
-                    case(38)->{rotate();}//up
-                    case(39)->{
-                        if(calculator.canMove('r',grid,currentBlock.getBlock(),currentBlock.position)){
-                            currentBlock.position.change(new int[]{1,0});
-                        }
-                        frame.repaint();
-                    }//right
-                    case(37)->{
-                        if(calculator.canMove('l',grid,currentBlock.getBlock(),currentBlock.position)){
-                            currentBlock.position.change(new int[]{-1,0});
-                        }
-                        frame.repaint();
-                    }//left
-                    case(40)->{fall();}//down
-                    case(67)-> {block temp = currentBlock;
-                        if(!currentBlock.hasBeenHeld){
-                        if(heldBlock!=null){
-                            heldBlock.position = currentBlock.position;
-                            currentBlock = heldBlock;
-                        heldBlock = temp;
-                        heldBlock.hasBeenHeld = true;}
-                        else{
-                            heldBlock = currentBlock.randobblock(new position(0,0));
-                        }
-                        }
-                    }//c
-                    case(32)->{
-                        while (calculator.canMoveDown(grid,currentBlock.getBlock(),currentBlock.position)){
-                            fall();}fall();
-                    }//space
-                }
-
-            }
-        });
-        //</editor-fold>
     }
     public void rotate(){
         if(calculator.canRotate(grid,currentBlock.getBlock(),currentBlock.position)){
             currentBlock.rotate();}
-        else if(currentBlock.position.get()[0]<grid[0].length/2){
+        else if(currentBlock.position.get()[0]<grid[0].length/2&&
+                calculator.canMove('r',grid,currentBlock.getBlock(),currentBlock.position)){
             if (!calculator.canRotate(grid,currentBlock.getBlock(),currentBlock.position)){
                 currentBlock.position.change(new int[]{1,0});
             }
             rotate();
         }else{
-            if (!calculator.canRotate(grid,currentBlock.getBlock(),currentBlock.position)){
+            if (!calculator.canRotate(grid,currentBlock.getBlock(),currentBlock.position)&&
+                    calculator.canMove('l',grid,currentBlock.getBlock(),currentBlock.position)){
                 currentBlock.position.change(new int[]{-1,0});
             }
             rotate();
@@ -163,6 +128,55 @@ public class field extends JPanel {
 
         }
     }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        return;
+    }
+    @Override
+    public void keyPressed(KeyEvent e) {
+        switch(e.getKeyCode()){
+            case(38)->{rotate();}//up
+            case(39)->{
+                if(calculator.canMove('r',grid,currentBlock.getBlock(),currentBlock.position)){
+                    currentBlock.position.change(new int[]{1,0});
+                }
+                frame.repaint();
+            }//right
+            case(37)->{
+                if(calculator.canMove('l',grid,currentBlock.getBlock(),currentBlock.position)){
+                    currentBlock.position.change(new int[]{-1,0});
+                }
+                frame.repaint();
+            }//left
+            case(40)->{fall();}//down
+            case(67)-> {block temp = currentBlock;
+                if(!currentBlock.hasBeenHeld){
+                    if(heldBlock!=null){
+                        heldBlock.position = currentBlock.position;
+                        currentBlock = heldBlock;
+                        heldBlock = temp;
+                        heldBlock.hasBeenHeld = true;}
+                    else{
+                        heldBlock = currentBlock.randobblock(new position(0,0));
+                    }
+                }
+            }//c
+            case(32)->{
+                while (calculator.canMoveDown(grid,currentBlock.getBlock(),currentBlock.position)){
+                    fall();}fall();
+            }//space
+        }
+
+    }
+    @Override
+    public void keyReleased(KeyEvent e) {
+        return;
+    }
+    public void addKeyListener(KeyListener l){
+        super.addKeyListener(l);
+        System.out.println(l);
+    }
 }
 
 class Pocket extends JPanel {
@@ -179,6 +193,7 @@ class Pocket extends JPanel {
 
     public void draw(Graphics g, block a, int score){
         this.score.setText(String.valueOf(score));
+        this.score.setEditable(false);
         if(a!=null){
             Boolean[][] got = calculator.mirror(a.getBlock());
             got = calculator.rot(calculator.rot(got));

@@ -1,5 +1,6 @@
+package stuffs;
+
 import java.awt.*;
-import java.util.Arrays;
 
 public class block {
     public position position;
