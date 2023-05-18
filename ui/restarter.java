@@ -11,7 +11,7 @@ public class restarter  {
     private JPanel panel1;
     private JFormattedTextField Score;
     public restarter(int score){
-        Score.setText("your score was \n"+ score);
+        Score.setText("your score was "+ score);
         Score.setEditable(false);
         frame = new JFrame();
         frame.setBounds(0,0,150,250);
