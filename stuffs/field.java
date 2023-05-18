@@ -187,7 +187,10 @@ class Pocket extends JPanel {
     private final int pixelsize;
     private JTextField score = new JTextField("0");
 
-    public JTextField getScore() {
+    public String getScore() {
+        return score.getText();
+    }
+    public JTextField getTScore(){
         return score;
     }
 

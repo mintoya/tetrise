@@ -6,6 +6,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 public class gaem extends Thread {
     private speed speed = new speed();
@@ -14,8 +16,9 @@ public class gaem extends Thread {
     private int high = 0;
     private int current = 0;
 
-    public gaem(){
+    public gaem(JFrame f){
         //<editor-fold desc="setup">
+        if(frame!=null){frame.dispose();}
         frame = new JFrame("testing");
         frame.setSize(300,500-50);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -33,13 +36,14 @@ public class gaem extends Thread {
         gField.setBounds        (0,0,280,500);
         gField.p.setBackground(new Color(146, 146, 146));
         gField.p.setBounds      (200,0,80,50);
-        gField.p.getScore().setBounds(200,80,100,40);
+        gField.p.getTScore().setBounds(200,80,100,40);
 
 
         frame.add(gField);
         frame.add(gField.p);
-        frame.add(gField.p.getScore());
-        frame.addKeyListener(gField);
+        frame.add(gField.p.getTScore());
+        frame.addKeyListener(gField
+        );
         //</editor-fold>
         speed.start();
     }
@@ -54,27 +58,11 @@ public class gaem extends Thread {
                     throw new RuntimeException(e);
                 }
             }
-
         }
-        prompt p = new prompt(current,high);
-        frame.setVisible(false);
+        interrupt();frame.setVisible(false);
 
+        restarter r = new restarter(Integer.parseInt(gField.p.getScore()));
     }
-}
-class prompt{
-    public prompt(int score, int highscore){
-        ui.restarter r = new restarter(highscore,score);
-        r.button1.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                 gaem g = new gaem();
-                 g.start();
-            }
-        }
-    );
-    }
-
-
 }
 class speed extends Thread{
     int interval = 1000;
