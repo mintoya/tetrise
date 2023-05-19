@@ -31,7 +31,8 @@ public class block {
 
     public block randobblock(position p){
         block returnblock = new block(this);
-        char c; int rand = (int)(Math.random()*7)+1;
+        char c;
+        int rand = (int)(Math.random()*7)+1;//Requirement: random variable
         switch (rand){
             case(1)->{c = 'l';}
             case(2)->{c = 'j';}
@@ -59,7 +60,7 @@ public class block {
         }
         this.position = p;
         return returnblock;
-    }
+    }//Requirement: class specific method
     public block(block b){
         hasBeenHeld = b.hasBeenHeld;
         position = new position(b.position.get());
@@ -71,7 +72,7 @@ public class block {
 
     public void rotate(){
         form = calculator.rot(form);
-    }
+    }//Requirement: void method
 
 }
 
@@ -83,13 +84,13 @@ public class block {
     public CBoolean(boolean b){
         bol = b;
         coler=null;
-    }
+    }//Requirement: overloaded constructor
     public void setColer(Color c){
         coler = c;
     }
     public void set(boolean a){
         bol = a;
-    }
+    }//Requirement: setter
     private Color coler;
     private Boolean bol;
     public Boolean get(){
@@ -106,13 +107,17 @@ class position {
     }
     public position(int[] a){
         x = a[0];y=a[1];
-    }
+    }//Requirement: array
     public int[] get(){
         return new int[]{x,y};
-    }
+    }//Requirement: getter
     public void change(int[] ammount) {
         if (ammount.length != 2) {return;}
         x+=ammount[0];y+=ammount[1];
-    }
+    }//Requirement: class specific method
+    public String toString(){
+        return ("x: "+x+" y: "+y);
+    }//Requirement: toString method
+
 }
 

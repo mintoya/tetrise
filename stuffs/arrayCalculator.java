@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class arrayCalculator {
+    //Requirement: class
     public boolean canRotate(CBoolean[][] a, Boolean[][] b, position p){
         Boolean[][] temp = rot(b);
         return(canaddTwo(a,temp,p)>0);
@@ -20,7 +21,7 @@ public class arrayCalculator {
             for (int j = 0; j < numCols; j++) {
                 mirroredArr[i][j] = arr[i][numCols - 1 - j];
             }
-        }
+        }//Requirement: for loop
         return mirroredArr;
     }
     public boolean canMove(char c,CBoolean[][] a,Boolean[][] b,position p){
@@ -95,7 +96,7 @@ public class arrayCalculator {
             t.add( new ArrayList<>(Arrays.asList(booleans)));
         }// for loop
         return t;
-    }
+    }//Requirement: ArrayList (converts a 2d array into a 2d arrayList)
     public CBoolean[][] A_to_a(ArrayList<ArrayList<CBoolean>> ans){
         CBoolean[][] tem= new CBoolean[ans.size()][ans.get(0).size()];
         for (int i = 0; i < ans.size(); i++) {
@@ -108,13 +109,10 @@ public class arrayCalculator {
     public Boolean[][] rot(Boolean[][] init){
         // rotates clockwise
         Boolean[][] temp = new Boolean[init[0].length][init.length];
-        final int M = init.length;
-        final int N = init[0].length;
-
-
-        for (int r = 0; r < M; r++) {
-            for (int c = 0; c < N; c++) {
-                temp[c][M-1-r] = init[r][c];
+        int x = init.length, y = init[0].length;
+        for (int r = 0; r < x; r++) {
+            for (int c = 0; c < y; c++) {
+                temp[c][x-1-r] = init[r][c];
             }
         }
         return temp;

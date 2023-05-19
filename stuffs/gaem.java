@@ -65,6 +65,7 @@ public class gaem extends Thread {
     }
 }
 class speed extends Thread{
+    //Requirement: different Difficulty modes
     int interval = 1000;
     public void run(){
         while(interval>300){

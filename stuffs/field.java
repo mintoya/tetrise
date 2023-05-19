@@ -8,6 +8,7 @@ import java.awt.event.KeyListener;
 import java.util.Arrays;
 
 public class field extends JPanel implements KeyListener {
+    // inheritance
     //<editor-fold desc="instance variables">
     private final arrayCalculator calculator = new arrayCalculator();
     public   JFrame frame;
@@ -19,13 +20,14 @@ public class field extends JPanel implements KeyListener {
     public Pocket p = new Pocket(pixelSize);
     //</editor-fold>
     private CBoolean[][] grid  = new CBoolean[20+extraLines][10];
+    //Requirement: Array
     public field(block b,JFrame f){
         super();
         frame = f;
         currentBlock = b;
         for (CBoolean[] booleans : grid) {
             Arrays.fill(booleans, new CBoolean(false));
-        }
+        }//Requirement: for each loop
     }
     public void rotate(){
         if(calculator.canRotate(grid,currentBlock.getBlock(),currentBlock.position)){
@@ -42,9 +44,9 @@ public class field extends JPanel implements KeyListener {
                 currentBlock.position.change(new int[]{-1,0});
             }
             rotate();
-        }
+        }//Requirement: if/Else if statement
         frame.repaint();
-    }
+    }//Requirement: recursive method
     protected void paintComponent(Graphics g){
         super.paintComponent(g);
         p.draw(g,heldBlock,score);
@@ -63,13 +65,13 @@ public class field extends JPanel implements KeyListener {
             score+=(Math.pow(calculator.gridScore(grid),2))*50;
             while(calculator.someFull(grid)){
                 grid = calculator.check(grid);
-            }
+            }//Requirement: while loop
             int rando = (int)(Math.random()*8);
             currentBlock.randobblock(new position(rando,0));
             currentBlock.hasBeenHeld = false;
         }
         frame.repaint();}
-    }
+    }//Requirement: fruitful method
     public boolean gameEnd(){
         for (int i = 0; i < extraLines; i++) {
             if(!calculator.isBlank(grid[i])){
