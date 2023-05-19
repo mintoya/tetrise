@@ -58,7 +58,7 @@ public class gaem extends Thread {
                     throw new RuntimeException(e);
                 }
             }
-        }
+        }// while loop
         interrupt();frame.setVisible(false);
 
         restarter r = new restarter(Integer.parseInt(gField.p.getScore()));

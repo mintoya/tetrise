@@ -93,7 +93,7 @@ public class arrayCalculator {
         ArrayList<ArrayList<CBoolean>> t = new ArrayList<>();
         for (CBoolean[] booleans : b) {
             t.add( new ArrayList<>(Arrays.asList(booleans)));
-        }
+        }// for loop
         return t;
     }
     public CBoolean[][] A_to_a(ArrayList<ArrayList<CBoolean>> ans){

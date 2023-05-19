@@ -1,21 +1,18 @@
 package ui;
 
-import stuffs.gaem;
-
-import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import javax.swing.* ;
 
 public class restarter  {
-    private JFrame frame;
-    private JPanel panel1;
+    public JFrame frame;
+    public JPanel score;
     private JFormattedTextField Score;
     public restarter(int score){
         Score.setText("your score was "+ score);
         Score.setEditable(false);
+
         frame = new JFrame();
-        frame.setBounds(0,0,150,250);
-        frame.add(panel1);
+        frame.setBounds(0,0,170 ,60);
+        frame.add(this.score);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
