@@ -37,13 +37,15 @@ public class field extends JPanel implements KeyListener {
             if (!calculator.canRotate(grid,currentBlock.getBlock(),currentBlock.position)){
                 currentBlock.position.change(new int[]{1,0});
             }
-            rotate();
+            if(currentBlock.position.get()[0]+currentBlock.getBlock()[0].length<grid[0].length)
+                rotate();
         }else{
             if (!calculator.canRotate(grid,currentBlock.getBlock(),currentBlock.position)&&
                     calculator.canMove('l',grid,currentBlock.getBlock(),currentBlock.position)){
                 currentBlock.position.change(new int[]{-1,0});
             }
-            rotate();
+            if(currentBlock.position.get()[0]>0)
+                rotate();
         }//Requirement: if/Else if statement
         frame.repaint();
     }//Requirement: recursive method

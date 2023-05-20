@@ -1,13 +1,17 @@
 package stuffs;
 
+import stuffs.music.playah;
 import ui.restarter;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.IOException;
 
 public class gaem extends Thread {
     private speed speed = new speed();
@@ -16,8 +20,10 @@ public class gaem extends Thread {
     private int high = 0;
     private int current = 0;
 
-    public gaem(JFrame f){
+    public gaem(JFrame f) throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         //<editor-fold desc="setup">
+        stuffs.music.playah song = new playah(3);
+        song.start();
         if(frame!=null){frame.dispose();}
         frame = new JFrame("testing");
         frame.setSize(300,500-50);
@@ -80,4 +86,3 @@ class speed extends Thread{
         }
     }
 }
-
