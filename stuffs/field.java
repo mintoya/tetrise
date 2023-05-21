@@ -62,7 +62,8 @@ public class field extends JPanel implements KeyListener {
         if(calculator.canMove('d',grid,currentBlock.getBlock(),currentBlock.position)){
             currentBlock.position.change(new int[]{0,1});
         }else{
-            grid = calculator.addTwo(grid,currentBlock.getBlock(),currentBlock.position,currentBlock.getColor());
+            if(calculator.canaddTwo(grid,currentBlock.getBlock(),currentBlock.position)>0)
+                grid = calculator.addTwo(grid,currentBlock.getBlock(),currentBlock.position,currentBlock.getColor());
 
             score+=(Math.pow(calculator.gridScore(grid),2))*50;
             while(calculator.someFull(grid)){

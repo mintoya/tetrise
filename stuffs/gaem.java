@@ -62,9 +62,8 @@ public class gaem extends Thread {
                     throw new RuntimeException(e);
                 }
             }
-        }// while loop
+        }//Requirement: while loop
         interrupt();
-        frame.remove(gField);
 
 
     }
