@@ -63,7 +63,12 @@ public class gaem extends Thread {
                 }
             }
         }//Requirement: while loop
+        frame.dispose();
         interrupt();
+        VFrame v = new VFrame("score",300,70,
+                "your score was"+ gField.p.getScore());
+        frame.setVisible(false);
+        v.setVisible(true);
 
 
     }
@@ -84,3 +89,19 @@ class speed extends Thread{
         }
     }
 }
+
+class VFrame extends JFrame{
+    public VFrame(String name, int width, int height, String Message){
+        super(name);
+
+        setSize(width,height);
+        JTextField f = new JTextField(Message);
+        f.setEnabled(true);
+        f.setBounds(0,0,width,height-50);
+        add(f);
+
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLayout(null);
+    }
+}
+
