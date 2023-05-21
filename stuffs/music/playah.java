@@ -3,17 +3,19 @@ package stuffs.music;
 import javax.sound.sampled.*;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 
 public class playah { private Clip clip;
     public playah(int i) throws UnsupportedAudioFileException, IOException,LineUnavailableException
 {
         String fp;
         switch (i){
-            case(1)->{fp = "stuffs/music/really slow.wav";}
-            case(3)->{fp = "stuffs/music/fast.wav";}
-            default -> {fp = "stuffs/music/ThemeSong.wav";}
+            case(1)->{fp = "really slow.wav";}
+            case(3)->{fp = "fast.wav";}
+            default -> {fp = "ThemeSong.wav";}
         }
-        AudioInputStream stream = AudioSystem.getAudioInputStream(new File(fp).getAbsoluteFile());
+    URL resource = playah.class.getResource(fp);
+        AudioInputStream stream = AudioSystem.getAudioInputStream(resource);
         clip = AudioSystem.getClip();
         clip.open(stream);
         clip.loop(Clip.LOOP_CONTINUOUSLY);
