@@ -5,7 +5,8 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
-public class playah { private Clip clip;
+public class playah {
+    private final Clip clip;
     public playah(int i) throws UnsupportedAudioFileException, IOException,LineUnavailableException
 {
         String fp;

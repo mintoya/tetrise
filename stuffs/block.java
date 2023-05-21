@@ -85,14 +85,9 @@ public class block {
         bol = b;
         coler=null;
     }//Requirement: overloaded constructor
-    public void setColer(Color c){
-        coler = c;
-    }
-    public void set(boolean a){
-        bol = a;
-    }//Requirement: setter
-    private Color coler;
-    private Boolean bol;
+
+     private final Color coler;
+    private final Boolean bol;
     public Boolean get(){
         return bol;
     }

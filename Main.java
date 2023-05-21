@@ -8,8 +8,7 @@ import java.io.IOException;
 public class Main {
     public static void main(String[] args) throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         //<editor-fold desc="game">
-        JFrame frame = new JFrame();
-        gaem g= new gaem(frame);
+        gaem g= new gaem();
         g.start();
         //</editor-fold>
     }

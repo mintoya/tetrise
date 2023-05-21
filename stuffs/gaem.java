@@ -7,13 +7,10 @@ import java.awt.*;
 import java.io.IOException;
 
 public class gaem extends Thread {
-    private speed speed = new speed();
+    private final speed speed = new speed();
     public field gField;
     JFrame frame;
-    private int high = 0;
-    private int current = 0;
-
-    public gaem(JFrame f){
+    public gaem(){
         //<editor-fold desc="setup">
         playah song = null;
         try {

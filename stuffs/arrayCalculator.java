@@ -1,8 +1,5 @@
 package stuffs;
 
-import stuffs.CBoolean;
-import stuffs.position;
-
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
