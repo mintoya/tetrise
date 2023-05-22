@@ -9,12 +9,12 @@ import java.io.IOException;
 public class gaem extends Thread {
     private final speed speed = new speed();
     public field gField;
-    JFrame frame;
+    JFrame frame; 
     public gaem(){
         //<editor-fold desc="setup">
-        playah song = null;
+        playah song;
         try {
-            song = new playah(3);
+            song = new playah(2);
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
             throw new RuntimeException(e);
         }

@@ -10,11 +10,11 @@ public class playah {
     public playah(int i) throws UnsupportedAudioFileException, IOException,LineUnavailableException
 {
         String fp;
-        switch (i){
-            case(1)->{fp = "really slow.wav";}
-            case(3)->{fp = "fast.wav";}
-            default -> {fp = "ThemeSong.wav";}
-        }
+    if (i == 2) {
+        fp = "fast.wav";
+    } else {
+        fp = "ThemeSong.wav";
+    }
     URL resource = playah.class.getResource(fp);
         AudioInputStream stream = AudioSystem.getAudioInputStream(resource);
         clip = AudioSystem.getClip();
