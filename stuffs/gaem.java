@@ -10,11 +10,11 @@ public class gaem extends Thread {
     private final speed speed = new speed();
     public field gField;
     JFrame frame; 
-    public gaem(){
+    public gaem(int choice){
         //<editor-fold desc="setup">
         playah song;
         try {
-            song = new playah(2);
+            song = new playah(choice);
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
             throw new RuntimeException(e);
         }
@@ -47,6 +47,7 @@ public class gaem extends Thread {
         );
         //</editor-fold>
         speed.start();
+        frame.setAlwaysOnTop(true);
     }
 
     public void run(){
@@ -101,4 +102,3 @@ class VFrame extends JFrame{
         setLayout(null);
     }
 }
-
