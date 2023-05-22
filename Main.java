@@ -12,7 +12,8 @@ public class Main {
 
         //<editor-fold desc="choser test">
         Scanner scan = new Scanner(System.in);
-        System.out.println("pick a song\n normal(1)\n fast(2)\n choose: ");
+        System.out.println("Controls:\n     movement: arrow keys\n      hold: c\n      down: space\n\n");
+        System.out.print("pick a theme\n normal(1)\n fast(2)\n choose: ");
         int i = scan.nextInt();
         gaem g= new gaem(i);
         g.start();

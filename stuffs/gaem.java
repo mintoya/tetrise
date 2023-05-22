@@ -55,18 +55,16 @@ public class gaem extends Thread {
             synchronized (this){
                 try{
                     gField.fall();
-                    this.wait(speed.interval);
+                    wait(speed.interval);
                 }catch (InterruptedException e){
                     throw new RuntimeException(e);
                 }
             }
         }//Requirement: while loop
-        frame.dispose();
         interrupt();
         VFrame v = new VFrame("score",300,70,
-                "your score was"+ gField.p.getScore());
+                "your score was "+ gField.p.getScore());
         frame.setVisible(false);
-        v.setVisible(true);
 
 
     }
@@ -100,5 +98,8 @@ class VFrame extends JFrame{
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(null);
+        setVisible(true);
+        setAlwaysOnTop(true);
+        System.out.println(Message);
     }
 }
