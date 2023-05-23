@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.net.URL;
 
 public class playah {
-    private final Clip clip;
+    private Clip clip;
     public playah(int i) throws UnsupportedAudioFileException, IOException,LineUnavailableException
 {
         String fp;
@@ -24,6 +24,16 @@ public class playah {
     }
     public void start() {
         clip.start();
+    }
+    public void spedup() throws LineUnavailableException, UnsupportedAudioFileException, IOException {
+        String fp = "fast.wav";
+        clip.stop();
+        URL resource = playah.class.getResource(fp);
+        AudioInputStream stream = AudioSystem.getAudioInputStream(resource);
+        clip = AudioSystem.getClip();
+        clip.open(stream);
+        clip.loop(Clip.LOOP_CONTINUOUSLY);
+        System.out.println("10000 reached");
     }
 
 }

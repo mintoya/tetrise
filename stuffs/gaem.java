@@ -29,7 +29,7 @@ public class gaem extends Thread {
         block block = new block(new position(3,0));
         block.randobblock(new position(3,0));
 
-        gField = new field(block, frame);
+        gField = new field(block, frame,song);
 
 
 

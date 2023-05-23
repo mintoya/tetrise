@@ -1,16 +1,22 @@
 package stuffs;
 
+import stuffs.music.playah;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.IOException;
 import java.util.Arrays;
 
 public class field extends JPanel implements KeyListener {
     // inheritance
     //<editor-fold desc="instance variables">
     private final arrayCalculator calculator = new arrayCalculator();
+    private playah music;
     public   JFrame frame;
     private int score = 0;
     private block currentBlock;
@@ -21,7 +27,7 @@ public class field extends JPanel implements KeyListener {
     //</editor-fold>
     private CBoolean[][] grid  = new CBoolean[20+extraLines][10];
     //Requirement: Array
-    public field(block b,JFrame f){
+    public field(block b, JFrame f, playah p){
         super();
         frame = f;
         currentBlock = b;
@@ -59,6 +65,13 @@ public class field extends JPanel implements KeyListener {
     public void fall(){
         if(gameEnd()){
         score+=10;
+        if(score>10000){
+            try {
+                music.spedup();
+            } catch (LineUnavailableException | UnsupportedAudioFileException | IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
         if(calculator.canMove('d',grid,currentBlock.getBlock(),currentBlock.position)){
             currentBlock.position.change(new int[]{0,1});
         }else{
