@@ -73,11 +73,11 @@ class speed extends Thread{
     //Requirement: different Difficulty modes
     int interval = 1000;
     public void run(){
-        while(interval>300){
+        while(interval>250){
             synchronized (this){
                 try {
                     interval -=10;
-                    wait(2000);
+                    wait(500);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
